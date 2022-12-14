@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/ShopCommon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopCommon/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/ShopBackEnd/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/ShopBackEnd/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/ShopFrontEnd/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/ShopFrontEnd/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShopWebParent/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

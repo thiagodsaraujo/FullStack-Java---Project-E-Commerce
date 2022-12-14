@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ShopCommon" />
+        <module name="ShopFrontEnd" />
+        <module name="ShopBackEnd" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ShopBackEnd" target="17" />
+      <module name="ShopCommon" target="17" />
+      <module name="ShopFrontEnd" target="17" />
+      <module name="ShopWebParent" target="17" />
+      <module name="TitaShopProject" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ShopBackEnd" options="-parameters" />
+      <module name="ShopCommon" options="-parameters" />
+      <module name="ShopFrontEnd" options="-parameters" />
+    </option>
+  </component>
+</project>
