@@ -1,14 +1,40 @@
 <!DOCTYPE html>
-<html>
+
+
+<!-- esse é um comentário 
+Adicionamos o xmlns junto do html dessa forma para fazer referencia ao thymeleaf
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"> 
 
 <head>
 
-<meta charset="ISO-8859-1">
-<title>TitaShop Admin Control Panel - InteliJJ</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+	
+	<title>Home - TitaShop Admin Control Panel</title>
+	
+	<!--adicionamos o th para se referir ao thymeleaf dessa forma com @ e {} -->
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:scr="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:scr="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	
 </head>
+
 <body>
 
-	<h1>Welcome to TitaShop Admin Control Panel - InteliJJ</h1>
+	<div class = "container-fluid">
+		<div>
+			<h1>TitaShop Control Panel</h1>
+		</div>
+		
+		<div>
+		<p>TitaShop Control Panel - Todos os Direitos Reservados &copy; TitaShop</p>
+		</div>
+	</div>
+
+
 </body>
 
 
