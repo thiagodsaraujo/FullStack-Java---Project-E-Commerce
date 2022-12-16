@@ -64,6 +64,18 @@
 			<artifactId>webjars-locator-core</artifactId>
 			<version>0.47</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.titashop</groupId>
+			<artifactId>ShopCommon</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		
 	</dependencies>
 
