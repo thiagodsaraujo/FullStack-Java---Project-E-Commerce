@@ -26,7 +26,7 @@ public class UserRepositoryTests {
 
 
     @Test
-    public void testCreateUser(){
+    public void testNewUserWithOneRole(){
         Role roleAdmin = entityManager.find(Role.class, 1); // vai pegar no bd da classe Role
         User userThg = new User("tita@email.com", "123", "Ojuara" , "Araujo" );
         userThg.addRole(roleAdmin);
@@ -35,4 +35,24 @@ public class UserRepositoryTests {
 
         assertThat(savedUser.getId()).isGreaterThan(0);
     }
+
+    @Test
+    public void testNewUserWithTwoRoles() {
+
+//        Role roleShipper = entityManager.find(Role.class, 4);
+//        Role roleAssistent = entityManager.find(Role.class, 2);
+
+        Role roleSalesperson = new Role(5);
+        Role roleAssistant = new Role(2);
+
+        User otherUser = new User("tita@email.com","123", "Tita", "Araujo");
+
+        otherUser.addRole(roleSalesperson);
+        otherUser.addRole(roleAssistant);
+
+        User savedUser = repo.save(otherUser);
+
+        assertThat(savedUser.getId()).isGreaterThan(0);
+    }
+
 }
