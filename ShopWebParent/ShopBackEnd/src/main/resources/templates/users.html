@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+ 
+    <title>Manage Users</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div>
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/images/ShopmeAdminSmall.png}">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+                    <span class="navbar-toggler-icon"> </span>
+                </button>
+                <div class="collapse navbar-collapse" id="topNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/users}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/categories}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/brands}">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/products}">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/customers}">Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/shipping}">Shipping</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/orders}">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/report}">Sales Report</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/articles}">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/menus}">Menus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/settings}">Settings</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <h2 class="text-black-100">Manage Users</h2>
+            <a th:href="@{/users/new}">Create New User</a>
+        </div>
+        <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+        <div>
+            <p class="text-center font-weight-lighter">List of Users</p>
+            <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Photos</th>
+                        <th>E-mail</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Roles</th>
+                        <th>Enabled</th>
+                        <th>Created Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+<!--                Começa com uma table body
+                    para fazer a listagem dos usuários fazemos da seguinte forma
+                    primeiro tem que adicionar o método no controller com o Model e add os atributos
+                    os nomes devem corresponder
+                    e abaixo dentro dessa sintaxe coloca cada atributo do Usuario-->
+                    <!--/*@thymesVar id="listUsers" type=""*/-->
+                    <tr th:each="user: ${listUsers}">
+                        <td>[[${user.id}]]</td>
+                        <td></td>
+                        <td>[[${user.email}]]</td>
+                        <td>[[${user.firstName}]]</td>
+                        <td>[[${user.lastName}]]</td>
+                        <td>[[${user.roles}]]</td>
+                        <td>[[${user.enabled}]]</td>
+                        <td>[[${user.createdDate}]]</td>
+                        <!--Actions-->
+                        <td>Edit &nbsp; Delete</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+ 
+        <div class="text-center">
+            <p>Tita Shop  Control Panel - Todos os Direitos Reservados &copy; Shopme</p>
+        </div>
+    </div>
+</body>
+</html>

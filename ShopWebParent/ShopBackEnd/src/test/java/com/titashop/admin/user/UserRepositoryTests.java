@@ -30,7 +30,8 @@ public class UserRepositoryTests {
     @Test
     public void testNewUserWithOneRole(){
         Role roleAdmin = entityManager.find(Role.class, 1); // vai pegar no bd da classe Role
-        User userThg = new User("tita@email.com", "123", "Ojuara" , "Araujo" );
+        User userThg = new User("thiagodsaraujo@email.com",
+                "123", "Thiago" , "Araújo" );
         userThg.addRole(roleAdmin);
 
         User savedUser = repo.save(userThg);
@@ -47,7 +48,7 @@ public class UserRepositoryTests {
         Role roleSalesperson = new Role(5);
         Role roleAssistant = new Role(2);
 
-        User otherUser = new User("tita@email.com","123", "Tita", "Araujo");
+        User otherUser = new User("tita2@email.com","123", "Tita", "Araujo");
 
         otherUser.addRole(roleSalesperson);
         otherUser.addRole(roleAssistant);

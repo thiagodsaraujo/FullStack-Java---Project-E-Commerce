@@ -2,6 +2,8 @@ package com.titashop.common.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +27,12 @@ public class User {
 
     @Column(name = "last_name",length = 45, nullable = false)
     private String lastName;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "diff_time")
+    private Date diffDate;
 
     @Column(length = 64)
     private String photos;
@@ -52,6 +60,10 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+//        LocalDate localDate = LocalDate.now();
+//        this.createdDate = Date.valueOf(localDate);
+        this.createdDate = new Date(Calendar.getInstance().getTime().getTime());
+//        this.diffDate = getDiffDate();
     }
 
 
@@ -124,6 +136,21 @@ public class User {
         this.roles.add(role);
     }
 
+    public Date getCreatedDate() {
+        return new Date(Calendar.getInstance().getTime().getTime());
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+//    public Date getDiffDate(){
+//        Date createdDate = getCreatedDate();
+//        Date actualDate = new Date(Calendar.getInstance().getTime().getTime());
+//        long diff = createdDate.getTime() - actualDate.getTime();
+//        return Date.valueOf(String.valueOf(diff));
+//    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -131,6 +158,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", createdDate=" + createdDate +
+                ", photos='" + photos + '\'' +
+                ", enabled=" + enabled +
                 ", roles=" + roles +
                 '}';
     }
