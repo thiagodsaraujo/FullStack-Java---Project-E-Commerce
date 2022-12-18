@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -63,6 +65,48 @@ public class UserRepositoryTests {
 
         listUsers.forEach(user -> System.out.println(user));
 
+    }
+
+    // vai testar o get por Id
+
+    @Test
+    public void testGetUserById(){
+        var userId1 = repo.findById(1).get();
+        var userId2 = repo.findById(5).get();
+        System.out.println(userId1);
+        System.out.println(userId2);
+
+        assertThat(userId1).isNotNull();
+        assertThat(userId2).isNotNull();
+    }
+
+    @Test
+    public void testUpdateUserDetails(){
+        var userId1 = repo.findById(1).get();
+
+        userId1.setEnabled(true);
+        userId1.setPassword("12345");
+
+        repo.save(userId1);
+    }
+
+    @Test
+    public void testUpdateUserRoles(){
+        var userId2 = repo.findById(5).get();
+
+        Role roleSalesPerson = new Role(5);
+        Role roleShipper = new Role(4);
+
+        userId2.getRoles().remove(roleSalesPerson);
+        userId2.addRole(roleShipper);
+
+        repo.save(userId2);
+    }
+
+    @Test
+    public void testDeleteUser(){
+        Integer userId = 5;
+        repo.deleteById(userId);
     }
 
 }
