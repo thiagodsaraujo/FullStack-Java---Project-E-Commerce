@@ -120,4 +120,13 @@ public class UserRepositoryTests {
         System.out.println("-------------------------------------------");
     }
 
+    @Test
+    public void testGetUserByEmail(){
+        String email = "goku@gmail.com";
+        var user = repo.getUserByEmail(email);
+
+        assertThat(user).isNotNull();
+
+    }
+
 }

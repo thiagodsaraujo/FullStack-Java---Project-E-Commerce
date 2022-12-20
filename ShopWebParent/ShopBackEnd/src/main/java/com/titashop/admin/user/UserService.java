@@ -25,7 +25,7 @@ public class UserService {
             return (List<User>) userRepo.findAll();
     }
 
-   public List<Role> listRoles(){
+    public List<Role> listRoles(){
         return (List<Role>) roleRepo.findAll();
    }
 
@@ -38,5 +38,11 @@ public class UserService {
     private void encodePassword(User user){
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+    }
+
+    public boolean isEmailIsUnique(String email){
+        var userByEmail = userRepo.getUserByEmail(email);
+        // se não existir retorna nulo, portanto e-mail válido e pode seguir
+        return userByEmail == null;
     }
 }
