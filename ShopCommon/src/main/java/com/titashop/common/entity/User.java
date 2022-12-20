@@ -137,7 +137,11 @@ public class User {
     }
 
     public Date getCreatedDate() {
-        return new Date(Calendar.getInstance().getTime().getTime());
+        return createdDate;
+    }
+
+    public Date getDiffDate() {
+        return diffDate;
     }
 
     public void setCreatedDate(Date createdDate) {

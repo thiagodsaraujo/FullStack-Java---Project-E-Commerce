@@ -110,4 +110,14 @@ public class UserRepositoryTests {
         repo.deleteById(userId);
     }
 
+    @Test
+    public void lookupUser(){
+        Integer userId = 9;
+        var byId = repo.findById(1);
+        System.out.println("-------------------------------------------");
+        System.out.println(byId.get().getFirstName().toString());
+        System.out.println(byId.get().getCreatedDate().toString());
+        System.out.println("-------------------------------------------");
+    }
+
 }
