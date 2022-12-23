@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -44,7 +46,7 @@ public class UserController {
     @PostMapping("/users/save")
     public String saveUser(User user, RedirectAttributes redirectAttributes){
         System.out.println(user);
-        user.setCreatedDate(user.getCreatedDate());
+        user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
         service.save(user);
 
         redirectAttributes.addFlashAttribute("message",

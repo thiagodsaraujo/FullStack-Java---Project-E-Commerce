@@ -60,10 +60,7 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-//        LocalDate localDate = LocalDate.now();
-//        this.createdDate = Date.valueOf(localDate);
         this.createdDate = new Date(Calendar.getInstance().getTime().getTime());
-//        this.diffDate = getDiffDate();
     }
 
 

@@ -2,13 +2,17 @@ package com.titashop.admin.user;
 
 import com.titashop.common.entity.Role;
 import com.titashop.common.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -31,6 +35,7 @@ public class UserService {
 
     public void save(User user) {
         encodePassword(user);
+        user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
         userRepo.save(user);
     }
 
@@ -40,7 +45,7 @@ public class UserService {
         user.setPassword(encodedPassword);
     }
 
-    public boolean isEmailIsUnique(String email){
+    public boolean isEmailUnique(String email){
         var userByEmail = userRepo.getUserByEmail(email);
         // se não existir retorna nulo, portanto e-mail válido e pode seguir
         return userByEmail == null;

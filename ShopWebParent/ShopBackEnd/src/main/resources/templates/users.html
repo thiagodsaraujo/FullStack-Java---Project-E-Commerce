@@ -3,12 +3,18 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
+
+    <title>Manage Users</title>
+
+
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
- 
-    <title>Manage Users</title>
+<!--    aula 32 minuto 3:22 tem diferença no head, aqui tem 3 script-->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+
 </head>
 <body>
     <div class="container-fluid">
@@ -91,15 +97,25 @@
                     <!--/*@thymesVar id="listUsers" type=""*/-->
                     <tr th:each="user: ${listUsers}">
                         <td>[[${user.id}]]</td>
-                        <td></td>
+                        <td><span class="fas fa-image-portrait fa-3x icon-silver"></span></td>
                         <td>[[${user.email}]]</td>
                         <td>[[${user.firstName}]]</td>
                         <td>[[${user.lastName}]]</td>
                         <td>[[${user.roles}]]</td>
-                        <td>[[${user.enabled}]]</td>
+
+                        <td>
+<!--                            th:if="${user.enabled == true}"-->
+                            <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" href=""></a>
+                            <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+                        </td>
+
                         <td>[[${user.createdDate}]]</td>
                         <!--Actions-->
-                        <td>Edit &nbsp; Delete</td>
+                        <td>
+                            <a class="fas fa-light fa-pen-to-square fa-2x icon-crimson" href=""></a>
+                            &nbsp;
+                            <a class="fas fa-light fa-trash fa-2x icon-darkcyan" href=""></a>
+                        </td>
 
                     </tr>
                 </tbody>
