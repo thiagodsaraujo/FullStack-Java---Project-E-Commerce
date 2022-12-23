@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -49,5 +50,13 @@ public class UserService {
         var userByEmail = userRepo.getUserByEmail(email);
         // se não existir retorna nulo, portanto e-mail válido e pode seguir
         return userByEmail == null;
+    }
+
+    public User get(Integer id) throws UserNotFoundException {
+        try {
+            return  userRepo.findById(id).get();
+        } catch (NoSuchElementException e){
+            throw new UserNotFoundException("Could not find any user with ID :" + id);
+        }
     }
 }
