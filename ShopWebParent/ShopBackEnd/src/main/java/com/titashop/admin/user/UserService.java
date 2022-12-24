@@ -46,10 +46,21 @@ public class UserService {
         user.setPassword(encodedPassword);
     }
 
-    public boolean isEmailUnique(String email){
+    public boolean isEmailUnique(Integer id, String email){
         var userByEmail = userRepo.getUserByEmail(email);
         // se não existir retorna nulo, portanto e-mail válido e pode seguir
-        return userByEmail == null;
+        if (userByEmail == null) return  true;
+
+        boolean isCreatingNew = (id == null);
+
+        if (isCreatingNew){
+            if (userByEmail !=null) return false;
+        } else {
+            if (userByEmail.getId() != id){
+                return false;
+            }
+        }
+        return true;
     }
 
     public User get(Integer id) throws UserNotFoundException {
