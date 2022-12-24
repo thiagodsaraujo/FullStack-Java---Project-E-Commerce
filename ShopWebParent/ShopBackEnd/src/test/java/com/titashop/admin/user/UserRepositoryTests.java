@@ -125,9 +125,16 @@ public class UserRepositoryTests {
     public void testGetUserByEmail(){
         String email = "goku@gmail.com";
         var user = repo.getUserByEmail(email);
-
         assertThat(user).isNotNull();
+    }
 
+    @Test
+    public void testCountById(){
+        Integer id = 20;
+        var countById = repo.countById(id);
+
+        // vai contar se tem algum com ess eid
+        assertThat(countById).isNotNull().isGreaterThan(0);
     }
 
 }
