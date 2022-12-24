@@ -35,8 +35,19 @@ public class UserService {
    }
 
     public void save(User user) {
-        encodePassword(user);
-        user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
+        boolean isUpdatingUser = (user.getId() != null); // se não for novo usuário ele já possui id
+
+        if (isUpdatingUser) {
+            User existingUser = userRepo.findById(user.getId()).get();
+            if (user.getPassword().isEmpty()){
+                user.setPassword(existingUser.getPassword()); // se nao preencher o campo salva a senha que ja está
+            } else {
+                encodePassword(user); // se nao salvo a senha nova
+            }
+         } else {
+            encodePassword(user);
+            user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
+        }
         userRepo.save(user);
     }
 
