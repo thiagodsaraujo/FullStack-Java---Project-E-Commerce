@@ -115,7 +115,8 @@
                             <a class="fas fa-light fa-pen-to-square fa-2x icon-crimson"
                                th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user"></a>
                             &nbsp;
-                            <a class="fas fa-light fa-trash fa-2x icon-darkcyan" href=""></a>
+                            <a class="fas fa-light fa-trash fa-2x icon-darkcyan" th:href="@{'/users/delete/' + ${user.id}}"
+                            title="Dele this User"></a>
                         </td>
 
                     </tr>
