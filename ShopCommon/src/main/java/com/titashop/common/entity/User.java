@@ -31,9 +31,6 @@ public class User {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Column(name = "diff_time")
-    private Date diffDate;
-
     @Column(length = 64)
     private String photos;
 
@@ -137,20 +134,10 @@ public class User {
         return createdDate;
     }
 
-    public Date getDiffDate() {
-        return diffDate;
-    }
-
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-//    public Date getDiffDate(){
-//        Date createdDate = getCreatedDate();
-//        Date actualDate = new Date(Calendar.getInstance().getTime().getTime());
-//        long diff = createdDate.getTime() - actualDate.getTime();
-//        return Date.valueOf(String.valueOf(diff));
-//    }
 
     @Override
     public String toString() {

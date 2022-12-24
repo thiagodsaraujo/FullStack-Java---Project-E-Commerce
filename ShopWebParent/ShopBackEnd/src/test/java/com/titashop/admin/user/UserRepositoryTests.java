@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -30,9 +32,10 @@ public class UserRepositoryTests {
     @Test
     public void testNewUserWithOneRole(){
         Role roleAdmin = entityManager.find(Role.class, 1); // vai pegar no bd da classe Role
-        User userThg = new User("ojuaraaraujo@email.com",
-                "123", "Araujo" , "Ojuara" );
+        User userThg = new User("ojuaradiabo@email.com",
+                "123", "OJUARA" , "do Filme" );
 
+        userThg.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
         userThg.addRole(roleAdmin);
 
         User savedUser = repo.save(userThg);
