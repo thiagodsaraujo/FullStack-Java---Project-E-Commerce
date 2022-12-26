@@ -105,8 +105,12 @@
 
                         <td>
 <!--                            th:if="${user.enabled == true}"-->
-                            <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green" href=""></a>
-                            <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+                            <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+                               th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+                                title="Disable this user"></a>
+                            <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-silver"
+                               th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+                               title="Enable this user"></a>
                         </td>
 
                         <td>[[${user.createdDate}]]</td>
