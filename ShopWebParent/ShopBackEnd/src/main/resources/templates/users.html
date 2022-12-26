@@ -97,7 +97,12 @@
                     <!--/*@thymesVar id="listUsers" type=""*/-->
                     <tr th:each="user: ${listUsers}">
                         <td>[[${user.id}]]</td>
-                        <td><span class="fas fa-image-portrait fa-3x icon-silver"></span></td>
+                        <td><!--/*@thymesVar id="photos" type="images"*/-->
+                        <span th:if="${user.photos == null}" class="fas fa-image-portrait fa-3x icon-silver"></span>
+                            <!--/*@thymesVar id="getPhotosImagePath" type=""*/-->
+                            <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+                            style="width: 80px"/>
+                        </td>
                         <td>[[${user.email}]]</td>
                         <td>[[${user.firstName}]]</td>
                         <td>[[${user.lastName}]]</td>

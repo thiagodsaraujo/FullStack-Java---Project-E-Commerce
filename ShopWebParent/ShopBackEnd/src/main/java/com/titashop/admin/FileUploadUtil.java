@@ -14,13 +14,12 @@ public class FileUploadUtil {
     public static void saveFile(String uploadDic, String fileName,
                                 MultipartFile multipartFile) throws IOException {
 
-//        Path uploadPath = Paths.get(uploadDic);
-        Path uploadPath = Paths.get("ShopWebParent/ShopBackEnd/" + uploadDic);
+        Path uploadPath = Paths.get(uploadDic);
+//        Path uploadPath = Paths.get("ShopWebParent/ShopBackEnd/" + uploadDic);
 
         if (!Files.exists(uploadPath)){
             Files.createDirectories(uploadPath);
-//            System.out.println("**********************************************\n" +
-//                    "I created the file " + fileName);
+
         }
 
         try(InputStream inputStream = multipartFile.getInputStream()) {
