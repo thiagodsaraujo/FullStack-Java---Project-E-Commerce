@@ -1,11 +1,12 @@
 package com.titashop.admin.user;
 
 
-import com.titashop.common.entity.Role;
+import com.titashop.admin.FileUploadUtil;
 import com.titashop.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Date;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -49,11 +51,23 @@ public class UserController {
 
     @PostMapping("/users/save")
     public String saveUser(User user, RedirectAttributes redirectAttributes,
-                           @RequestParam("image")MultipartFile multipartFile){
+                           @RequestParam("image")MultipartFile multipartFile) throws IOException {
 
-        System.out.println(user);
-        System.out.println(multipartFile.getOriginalFilename());
-//        user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
+//        System.out.println(user);
+//        System.out.println(multipartFile.getOriginalFilename());
+//        user.setCreatedDate (new Date(Calendar.getInstance().getTime().getTime()));
+
+        if (!multipartFile.isEmpty()){
+
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            user.setPhotos(fileName);
+            User savedUser = service.save(user);
+
+            String uploadDir = "user-photos/" + savedUser.getId();
+
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
+
 //        service.save(user);
 
         redirectAttributes.addFlashAttribute("message",

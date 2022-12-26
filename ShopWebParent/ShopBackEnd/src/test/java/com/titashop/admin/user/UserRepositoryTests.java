@@ -11,7 +11,6 @@ import org.springframework.test.annotation.Rollback;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

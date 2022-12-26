@@ -34,7 +34,7 @@ public class UserService {
         return (List<Role>) roleRepo.findAll();
    }
 
-    public void save(User user) {
+    public User save(User user) {
         boolean isUpdatingUser = (user.getId() != null); // se não for novo usuário ele já possui id
 
         if (isUpdatingUser) {
@@ -48,7 +48,7 @@ public class UserService {
             encodePassword(user);
             user.setCreatedDate(new Date(Calendar.getInstance().getTime().getTime()));
         }
-        userRepo.save(user);
+        return userRepo.save(user);
     }
 
     // método para encodar o password
