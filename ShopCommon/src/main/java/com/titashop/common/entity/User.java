@@ -34,6 +34,7 @@ public class User {
     @Column(length = 64)
     private String photos;
 
+    
     private boolean enabled;
 
     /** aqui vai ser o seguinte, tbl user_roles:
