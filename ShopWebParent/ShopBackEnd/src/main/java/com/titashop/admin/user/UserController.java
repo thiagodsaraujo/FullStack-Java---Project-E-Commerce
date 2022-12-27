@@ -42,14 +42,29 @@ public class UserController {
                              Model model){
         var page = service.listByPage(pageNum);
         var listUsers = page.getContent();
-        model.addAttribute("listUsers", listUsers);
 
-        System.out.println("PageNum = " + pageNum);
         System.out.println("TotalElements = " + page.getTotalElements());
         System.out.println("Total Pages = " + page.getTotalPages());
+        System.out.println("PageNum = " + pageNum);
 
+        long startCount = (pageNum - 1 ) * UserService.USERS_PER_PAGE + 1;
+        System.out.println("startCount = " + startCount);
+
+        long endCount = startCount + UserService.USERS_PER_PAGE -1;
+        System.out.println("endCount = " + endCount);
+
+        if (endCount > page.getTotalElements()){
+            endCount = page.getTotalElements();
+        }
+
+
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listUsers", listUsers);
 
         return "users";
+
     }
 
 

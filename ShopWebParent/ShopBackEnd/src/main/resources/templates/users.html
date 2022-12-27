@@ -143,12 +143,37 @@
                                th:userId="${user.id}"
                             title="Delete this User"></a>
                         </td>
-
                     </tr>
+
+
                 </tbody>
             </table>
         </div>
 
+        <div th:if="${totalItems > 0}">
+            <h2>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h2>
+        </div>
+        <div th:unless="${totalItems > 0}">
+            <h2> No Users found </h2>
+        </div>
+            <nav data-pagination>
+                <a href=# disabled><i class=ion-chevron-left></i></a>
+                <ul>
+                    <li class=current><a href=#1>1</a>
+                    <li><a href=#2>2</a>
+                    <li><a href=#3>3</a>
+                    <li><a href=#4>4</a>
+                    <li><a href=#5>5</a>
+                    <li><a href=#6>6</a>
+                    <li><a href=#7>7</a>
+                    <li><a href=#8>8</a>
+                    <li><a href=#9>9</a>
+                    <li><a href=#10>…</a>
+                    <li><a href=#41>41</a>
+                </ul>
+                <a href=#2><i class=ion-chevron-right></i></a>
+            </nav>
+        </div>
         <div class="modal fade text-center" id="confirmModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -173,6 +198,7 @@
             <p>Tita Shop  Control Panel - Todos os Direitos Reservados &copy; Shopme</p>
         </div>
     </div>
+
         <script type="text/javascript">
             $(document).ready(function (){
                 $(".link-delete").on("click", function (e){
