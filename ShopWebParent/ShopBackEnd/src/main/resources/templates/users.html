@@ -151,7 +151,7 @@
         </div>
 
         <div th:if="${totalItems > 0}">
-            <h3>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h3>
+            <h3 class="text-center mb-2">Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h3>
         </div>
 
         <div th:unless="${totalItems > 0}">
@@ -159,26 +159,27 @@
         </div>
 
         <nav>
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center mb-5">
 
-                <li class="page-item">
+                <li th:class="${currentPage > 1? 'page-item' : 'page-item disabled'}">
                     <a class="page-link" th:href="@{/users/page/1}" tabindex="-1">First</a>
                 </li>
 
-                <li class="page-item">
-                    <a class="page-link" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" id="previous-li" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
                 </li>
 <!--                erro para clicar na lista de paginação 31:29-->
-                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
+                    th:each="i : ${#numbers.sequence(1, totalPages)}">
                     <a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
                 </li>
 
-
-                <li class="page-item">
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+<!--                <li class="page-item">-->
                     <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
                 </li>
 
-                <li class="page-item">
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
                     <a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
                 </li>
 

@@ -8,11 +8,8 @@
 *.icon-green{color:darkgreen}
 *.icon-dark{color: black}
 
-
-
 h3{
     text-align: center;
-    size: 0.5rem;
 }
 
 /*.pagination {*/
@@ -21,6 +18,22 @@ h3{
 /*    text-align: center;*/
 /*    width: 100%;*/
 /*}*/
+
+/*.pagination #previous-li{*/
+/*    border: 1px solid #c9c9c9;*/
+/*    color: #242424;*/
+/*    text-decoration: none;*/
+/*    display: inline-block;*/
+/*    transition: all .8s ease 0s;*/
+/*    height: 40px;*/
+/*    line-height: 40px;*/
+/*    margin: 0 10px 0 0;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
+/*    width: 75px;*/
+/*    margin-top: 10px;*/
+/*}*/
+
 /*.pagination ul {*/
 /*    margin: 0;*/
 /*    padding: 0;*/
@@ -37,7 +50,8 @@ h3{
 /*.pagination li a {*/
 /*    border: 1px solid #c9c9c9;*/
 /*    color: #242424;*/
-/*    text-decoration: none;*/
+/*    text-decoration: black;*/
+/*    text-decoration-style: solid !important;*/
 /*    display: inline-block;*/
 /*    transition: all .8s ease 0s;*/
 /*    height: 40px;*/
@@ -49,11 +63,11 @@ h3{
 /*    margin-top: 10px;*/
 /*}*/
 /*.pagination li a:hover {*/
-/*    background-color: #gray;*/
+/*    background-color: #4CAF50;*/
 /*    color: white;*/
 /*}*/
 /*.pagination li a.active {*/
-/*    background-color: gray;*/
+/*    background-color: #4CAF50;*/
 /*    color: white;*/
 /*}*/
 
