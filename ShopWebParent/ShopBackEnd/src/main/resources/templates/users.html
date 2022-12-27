@@ -151,29 +151,43 @@
         </div>
 
         <div th:if="${totalItems > 0}">
-            <h2>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h2>
+            <h3>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h3>
         </div>
+
         <div th:unless="${totalItems > 0}">
             <h2> No Users found </h2>
         </div>
-            <nav data-pagination>
-                <a href=# disabled><i class=ion-chevron-left></i></a>
-                <ul>
-                    <li class=current><a href=#1>1</a>
-                    <li><a href=#2>2</a>
-                    <li><a href=#3>3</a>
-                    <li><a href=#4>4</a>
-                    <li><a href=#5>5</a>
-                    <li><a href=#6>6</a>
-                    <li><a href=#7>7</a>
-                    <li><a href=#8>8</a>
-                    <li><a href=#9>9</a>
-                    <li><a href=#10>…</a>
-                    <li><a href=#41>41</a>
-                </ul>
-                <a href=#2><i class=ion-chevron-right></i></a>
-            </nav>
-        </div>
+
+        <nav>
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item">
+                    <a class="page-link" th:href="@{/users/page/1}" tabindex="-1">First</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
+                </li>
+<!--                erro para clicar na lista de paginação 31:29-->
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+                </li>
+
+
+                <li class="page-item">
+                    <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+                </li>
+
+
+            </ul>
+        </nav>
+
+
+
         <div class="modal fade text-center" id="confirmModal">
             <div class="modal-dialog">
                 <div class="modal-content">
