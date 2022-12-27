@@ -8,3 +8,52 @@
 *.icon-green{color:darkgreen}
 *.icon-dark{color: black}
 
+
+body{
+    background-color: #dee9ff;
+    font-family: Montserrat,Arial, Helvetica, sans-serif;
+}
+
+a .button {
+    background-color: #0eb7f4;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    font-size:16px;
+    font-family: Montserrat,Arial, Helvetica, sans-serif;
+    border-radius:10px;
+}
+
+button:hover {
+    opacity:3;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f7f7f7;
+    font-family: Montserrat,Arial, Helvetica, sans-serif;
+}
+select {
+    width: 18%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f7f7f7;
+    font-family: Montserrat,Arial, Helvetica, sans-serif;
+}
+
+
+input[type=text]:focus, input[type=password]:focus, select:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
