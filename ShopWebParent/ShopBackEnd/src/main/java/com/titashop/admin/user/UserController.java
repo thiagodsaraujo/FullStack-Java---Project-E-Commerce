@@ -4,6 +4,7 @@ package com.titashop.admin.user;
 import com.titashop.admin.FileUploadUtil;
 import com.titashop.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -29,12 +30,28 @@ public class UserController {
 
 
     // no código html, faz referencia a "/users" então no getmapping vamos fazer da mesma forma
+    // Aqui ele mudou de listAll para listar a primeira pagina da paginação chamando o método listByPage
     @GetMapping("/users")
-    public String listAll(Model model){
-        List<User> listUsers = service.listAll();
-        model.addAttribute("listUsers", listUsers);
-        return "users"; // aqui ele vai procurar o arquivo html chamando users.
+    public String listFirstPage(Model model){
+        return listByPage(1,model);
     }
+
+
+    @GetMapping("/users/page/{pageNum}")
+    public String listByPage(@PathVariable("pageNum") int pageNum,
+                             Model model){
+        var page = service.listByPage(pageNum);
+        var listUsers = page.getContent();
+        model.addAttribute("listUsers", listUsers);
+
+        System.out.println("PageNum = " + pageNum);
+        System.out.println("TotalElements = " + page.getTotalElements());
+        System.out.println("Total Pages = " + page.getTotalPages());
+
+
+        return "users";
+    }
+
 
     @GetMapping("/users/new")
     public String newUser(Model model){
