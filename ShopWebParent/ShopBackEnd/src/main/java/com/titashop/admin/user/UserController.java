@@ -74,6 +74,8 @@ public class UserController {
         model.addAttribute("totalItems", page.getTotalElements());
 
         model.addAttribute("listUsers", listUsers);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
 
         return "users";
 
