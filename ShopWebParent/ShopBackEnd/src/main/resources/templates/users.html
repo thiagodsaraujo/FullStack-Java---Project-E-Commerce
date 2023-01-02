@@ -78,21 +78,96 @@
             <table class="table table-bordered table-striped table-hover table-responsive-xl table-condensed">
                 <thead class="thead-dark">
                     <tr>
-                        <th>User ID</th>
-                        <th>Photos</th>
-                        <th>E-mail</th>
-
                         <th>
-                            <a>First Name</a>
-                            <span th:if="${sortField == 'firstName'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+                            <a th:if="${sortField != 'id'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir}}">
+                            User ID
+                               </a>
+
+                            <a th:if="${sortField == 'id'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+                                User ID
+                            </a>
+
+                            <span th:if="${sortField == 'id'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                            </span>
                         </th>
 
+                        <th>Photos</th>
+                        <th>
+                            <a th:if="${sortField != 'email'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir}}">
+                                E-mail
+                            </a>
+
+                            <a th:if="${sortField == 'email'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                                E-mail
+                            </a>
+
+                            <span th:if="${sortField == 'email'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+                            </span>
+
+                        </th>
+
+                        <th>
+                            <a th:if="${sortField != 'firstName'}" class="text-white"
+                            th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir}}">
+                                First Name
+                            </a>
+
+                            <a th:if="${sortField == 'firstName'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                                First Name
+                            </a>
+
+                            <span th:if="${sortField == 'firstName'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+
+                            </span>
+                        </th>
 
                         <th>Last Name</th>
                         <th>Roles</th>
-                        <th>Enabled</th>
-                        <th>Client Since</th>
+                        <th>
+                            <a th:if="${sortField != 'enabled'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir}}">
+                                Enabled
+                            </a>
+
+                            <a th:if="${sortField == 'enabled'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reverseSortDir}}">
+                                Enabled
+                            </a>
+
+                            <span th:if="${sortField == 'enabled'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+
+                            </span>
+
+                        </th>
+
+
+
+                        <th>
+                            <a th:if="${sortField != 'createdDate'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=createdDate&sortDir=' + ${sortDir}}">
+                                Client Since
+                            </a>
+
+                            <a th:if="${sortField == 'createdDate'}" class="text-white"
+                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=createdDate&sortDir=' + ${reverseSortDir}}">
+                                Client Since
+                            </a>
+
+                            <span th:if="${sortField == 'createdDate'}"
+                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+
+                            </span>
+
+                        </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
