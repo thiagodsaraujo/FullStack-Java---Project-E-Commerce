@@ -5,6 +5,7 @@ import com.titashop.admin.FileUploadUtil;
 import com.titashop.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -33,14 +34,21 @@ public class UserController {
     // Aqui ele mudou de listAll para listar a primeira pagina da paginação chamando o método listByPage
     @GetMapping("/users")
     public String listFirstPage(Model model){
-        return listByPage(1,model);
+        return listByPage(1,model,"firstName", "asc");
     }
 
 
     @GetMapping("/users/page/{pageNum}")
     public String listByPage(@PathVariable("pageNum") int pageNum,
-                             Model model){
-        var page = service.listByPage(pageNum);
+                             Model model,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir){
+
+        System.out.println("Sort Field: " + sortField);
+        System.out.println("Sort Order: " + sortDir);
+
+
+        var page = service.listByPage(pageNum, sortField, sortDir);
         var listUsers = page.getContent();
 
         System.out.println("TotalElements = " + page.getTotalElements());

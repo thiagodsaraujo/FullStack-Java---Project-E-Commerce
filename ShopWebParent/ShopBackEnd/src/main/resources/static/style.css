@@ -12,62 +12,59 @@ h3{
     text-align: center;
 }
 
-/*.pagination {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    text-align: center;*/
-/*    width: 100%;*/
+.pagination {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/*#previous-li #last-li #next-li #first-li {*/
+/*    border: 1px solid #c9c9c9;*/
+/*    width: 75px !important;*/
 /*}*/
 
-/*.pagination #previous-li{*/
-/*    border: 1px solid #c9c9c9;*/
-/*    color: #242424;*/
-/*    text-decoration: none;*/
-/*    display: inline-block;*/
-/*    transition: all .8s ease 0s;*/
-/*    height: 40px;*/
-/*    line-height: 40px;*/
-/*    margin: 0 10px 0 0;*/
-/*    padding: 0;*/
-/*    text-align: center;*/
-/*    width: 75px;*/
-/*    margin-top: 10px;*/
-/*}*/
 
-/*.pagination ul {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    border: 0;*/
-/*    outline: 0;*/
-/*    vertical-align: baseline;*/
-/*    background: 0 0;*/
-/*}*/
-/*.pagination li {*/
-/*    display: inline;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
-/*.pagination li a {*/
-/*    border: 1px solid #c9c9c9;*/
-/*    color: #242424;*/
-/*    text-decoration: black;*/
-/*    text-decoration-style: solid !important;*/
-/*    display: inline-block;*/
-/*    transition: all .8s ease 0s;*/
-/*    height: 40px;*/
-/*    line-height: 40px;*/
-/*    margin: 0 10px 0 0;*/
-/*    padding: 0;*/
-/*    text-align: center;*/
-/*    width: 40px;*/
-/*    margin-top: 10px;*/
-/*}*/
-/*.pagination li a:hover {*/
-/*    background-color: #4CAF50;*/
-/*    color: white;*/
-/*}*/
-/*.pagination li a.active {*/
-/*    background-color: #4CAF50;*/
-/*    color: white;*/
-/*}*/
+.pagination ul {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: 0 0;
+}
+.pagination li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+.pagination li a {
+    border: 1px solid #c9c9c9;
+    color: #242424;
+    text-decoration: black;
+    font-weight: bolder !important;
+    display: inline-block;
+    transition: all .8s ease 0s;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 10px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 80px;
+    margin-top: 10px;
+}
+.pagination li a:hover {
+    background-color: #007bff;
+    color: white;
+}
+.pagination li a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination li a.disable {
+    background-color: #007bff;
+    color: white;
+    margin: 75px;
+}
 

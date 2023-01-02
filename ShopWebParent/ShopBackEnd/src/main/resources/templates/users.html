@@ -162,7 +162,7 @@
             <ul class="pagination justify-content-center mb-5">
 
                 <li th:class="${currentPage > 1? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" th:href="@{/users/page/1}" tabindex="-1">First</a>
+                    <a class="page-link" id="first-li" th:href="@{/users/page/1}" tabindex="-1">First</a>
                 </li>
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
@@ -176,11 +176,11 @@
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
 <!--                <li class="page-item">-->
-                    <a class="page-link" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
+                    <a class="page-link" id="next-li" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+                    <a class="page-link" id="last-li" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
                 </li>
 
 
