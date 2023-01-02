@@ -230,26 +230,30 @@
         <nav>
             <ul class="pagination justify-content-center mb-5">
 
-                <li th:class="${currentPage > 1? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="first-li" th:href="@{/users/page/1}" tabindex="-1">First</a>
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" id="first-li" th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' +
+                    ${sortDir}}">First</a>
                 </li>
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="previous-li" th:href="@{'/users/page/' + ${currentPage - 1}}" tabindex="-1">Previous</a>
+                    <a class="page-link" id="previous-li" th:href="@{'/users/page/' + ${currentPage - 1} +
+                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
                 </li>
 <!--                erro para clicar na lista de paginação 31:29-->
                 <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
                     th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a class="page-link" th:href="@{'/users/page/' + ${i}}">[[${i}]]</a>
+                    <a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
 <!--                <li class="page-item">-->
-                    <a class="page-link" id="next-li" th:href="@{'/users/page/' + ${currentPage + 1}}">Next</a>
+                    <a class="page-link" id="next-li" th:href="@{'/users/page/' + ${currentPage + 1} +
+                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="last-li" th:href="@{'/users/page/' + ${totalPages}}">Last</a>
+                    <a class="page-link" id="last-li" th:href="@{'/users/page/' + ${totalPages} +
+                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
                 </li>
 
 
