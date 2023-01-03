@@ -34,7 +34,7 @@ public class UserController {
     // Aqui ele mudou de listAll para listar a primeira pagina da paginação chamando o método listByPage
     @GetMapping("/users")
     public String listFirstPage(Model model){
-        return listByPage(1,model,"firstName", "asc");
+        return listByPage(1,model,"firstName", "asc", null);
     }
 
 
@@ -42,24 +42,24 @@ public class UserController {
     public String listByPage(@PathVariable("pageNum") int pageNum,
                              Model model,
                              @Param("sortField") String sortField,
-                             @Param("sortDir") String sortDir){
+                             @Param("sortDir") String sortDir,
+                             @Param("keyword") String keyword){
+//
+//        System.out.println("Sort Field: " + sortField);
+//        System.out.println("Sort Order: " + sortDir);
 
-        System.out.println("Sort Field: " + sortField);
-        System.out.println("Sort Order: " + sortDir);
-
-
-        var page = service.listByPage(pageNum, sortField, sortDir);
+        var page = service.listByPage(pageNum, sortField, sortDir, keyword);
         var listUsers = page.getContent();
-
-        System.out.println("TotalElements = " + page.getTotalElements());
-        System.out.println("Total Pages = " + page.getTotalPages());
-        System.out.println("PageNum = " + pageNum);
+//
+//        System.out.println("TotalElements = " + page.getTotalElements());
+//        System.out.println("Total Pages = " + page.getTotalPages());
+//        System.out.println("PageNum = " + pageNum);
 
         long startCount = (pageNum - 1 ) * UserService.USERS_PER_PAGE + 1;
-        System.out.println("startCount = " + startCount);
+//        System.out.println("startCount = " + startCount);
 
         long endCount = startCount + UserService.USERS_PER_PAGE -1;
-        System.out.println("endCount = " + endCount);
+//        System.out.println("endCount = " + endCount);
 
 
         if (endCount > page.getTotalElements()){
@@ -74,11 +74,11 @@ public class UserController {
         model.addAttribute("startCount", startCount);
         model.addAttribute("endCount", endCount);
         model.addAttribute("totalItems", page.getTotalElements());
-
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword);
 
         return "users";
 
