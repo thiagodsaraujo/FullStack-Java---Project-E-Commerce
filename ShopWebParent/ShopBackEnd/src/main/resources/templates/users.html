@@ -73,6 +73,24 @@
         <div th:if="${message != null}" class="alert alert-success text-center">
             [[${message}]]
         </div>
+
+        <div>
+            <form th:action="@{/users/page/1}" class="form-inline m-2 mt-1">
+                <input type="hidden" name="sortField" th:value="${sortField}"/>
+                <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+                Find:&nbsp;
+                <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+                &nbsp;&nbsp;
+                <input type="submit" value="Search" class="btn btn-primary"/>
+                &nbsp;&nbsp;
+                <input type="button" value="Clear" class="btn btn-secondary"/>
+
+
+            </form>
+
+
+        </div>
+
         <div>
             <p class="text-center font-weight-lighter">List of Users</p>
             <table class="table table-bordered table-striped table-hover table-responsive-xl table-condensed">
@@ -224,9 +242,10 @@
         </div>
 
         <div th:unless="${totalItems > 0}">
-            <h2> No Users found </h2>
+            <h2 class="text-center m-3"> No Users found </h2>
         </div>
 
+        <div th:if="${totalPages > 1}">
         <nav>
             <ul class="pagination justify-content-center mb-5">
 
@@ -259,7 +278,7 @@
 
             </ul>
         </nav>
-
+        </div>
 
 
         <div class="modal fade text-center" id="confirmModal">
