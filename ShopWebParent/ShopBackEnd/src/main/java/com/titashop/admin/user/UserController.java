@@ -44,22 +44,22 @@ public class UserController {
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir,
                              @Param("keyword") String keyword){
-//
-//        System.out.println("Sort Field: " + sortField);
-//        System.out.println("Sort Order: " + sortDir);
+
+        System.out.println("Sort Field: " + sortField);
+        System.out.println("Sort Order: " + sortDir);
 
         var page = service.listByPage(pageNum, sortField, sortDir, keyword);
         var listUsers = page.getContent();
-//
-//        System.out.println("TotalElements = " + page.getTotalElements());
-//        System.out.println("Total Pages = " + page.getTotalPages());
-//        System.out.println("PageNum = " + pageNum);
+
+        System.out.println("TotalElements = " + page.getTotalElements());
+        System.out.println("Total Pages = " + page.getTotalPages());
+        System.out.println("PageNum = " + pageNum);
 
         long startCount = (pageNum - 1 ) * UserService.USERS_PER_PAGE + 1;
-//        System.out.println("startCount = " + startCount);
+        System.out.println("startCount = " + startCount);
 
         long endCount = startCount + UserService.USERS_PER_PAGE -1;
-//        System.out.println("endCount = " + endCount);
+        System.out.println("endCount = " + endCount);
 
 
         if (endCount > page.getTotalElements()){
@@ -121,9 +121,15 @@ public class UserController {
 
             }
 
-        redirectAttributes.addFlashAttribute("message",
-                "The user has been save successfully!");
-        return "redirect:/users";
+        redirectAttributes.addFlashAttribute("message", "The user has been save successfully!");
+
+        return getRedirectURLtoAffectedUserUpdate(user);
+    }
+
+    private String getRedirectURLtoAffectedUserUpdate(User user) {
+        String firstPartOfEmail = user.getEmail().split("@")[0];
+
+        return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
     }
 
     @GetMapping("/users/edit/{id}")

@@ -96,96 +96,14 @@
             <table class="table table-bordered table-striped table-hover table-responsive-xl table-condensed">
                 <thead class="thead-dark">
                     <tr>
-                        <th>
-                            <a th:if="${sortField != 'id'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                            User ID
-                               </a>
-
-                            <a th:if="${sortField == 'id'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir} + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                User ID
-                            </a>
-
-                            <span th:if="${sortField == 'id'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-                            </span>
-                        </th>
-
+                        <th th:replace="fragments :: column_link('id', 'User Id')"/>
                         <th>Photos</th>
-                        <th>
-                            <a th:if="${sortField != 'email'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                E-mail
-                            </a>
-
-                            <a th:if="${sortField == 'email'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                E-mail
-                            </a>
-
-                            <span th:if="${sortField == 'email'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-                            </span>
-
-                        </th>
-
-                        <th>
-                            <a th:if="${sortField != 'firstName'}" class="text-white"
-                            th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                First Name
-                            </a>
-
-                            <a th:if="${sortField == 'firstName'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                First Name
-                            </a>
-
-                            <span th:if="${sortField == 'firstName'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-
-                            </span>
-                        </th>
-
-                        <th>Last Name</th>
+                        <th th:replace="fragments :: column_link('email', 'Email')"/>
+                        <th th:replace="fragments :: column_link('firstName', 'First Name')"/>
+                        <th th:replace="fragments :: column_link('lastName', 'Last Name')"/>
                         <th>Roles</th>
-                        <th>
-                            <a th:if="${sortField != 'enabled'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                Enabled
-                            </a>
-
-                            <a th:if="${sortField == 'enabled'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                Enabled
-                            </a>
-
-                            <span th:if="${sortField == 'enabled'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-
-                            </span>
-
-                        </th>
-
-
-
-                        <th>
-                            <a th:if="${sortField != 'createdDate'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=createdDate&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                Client Since
-                            </a>
-
-                            <a th:if="${sortField == 'createdDate'}" class="text-white"
-                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=createdDate&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                                Client Since
-                            </a>
-
-                            <span th:if="${sortField == 'createdDate'}"
-                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-
-                            </span>
-
-                        </th>
+                        <th th:replace="fragments :: column_link('enabled', 'Enabled')"/>
+                        <th th:replace="fragments :: column_link('createdDate', 'Client Since')"/>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -250,32 +168,25 @@
             <ul class="pagination justify-content-center mb-5">
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="first-li" th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' +
-                    ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
+                    <a th:replace="fragments :: page_link(1, 'First')"></a>
                 </li>
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="previous-li" th:href="@{'/users/page/' + ${currentPage - 1} +
-                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
+                    <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
                 </li>
 <!--                erro para clicar na lista de paginação 31:29-->
                 <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
                     th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
+                    <a th:replace="fragments :: page_link(${i}, ${i})"></a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-<!--                <li class="page-item">-->
-                    <a class="page-link" id="next-li" th:href="@{'/users/page/' + ${currentPage + 1} +
-                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
+                    <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
                 </li>
 
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a class="page-link" id="last-li" th:href="@{'/users/page/' + ${totalPages} +
-                    '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
+                    <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
                 </li>
-
-
             </ul>
         </nav>
         </div>
