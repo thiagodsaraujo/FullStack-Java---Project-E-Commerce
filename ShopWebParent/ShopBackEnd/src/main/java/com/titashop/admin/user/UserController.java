@@ -3,6 +3,7 @@ package com.titashop.admin.user;
 
 import com.titashop.admin.FileUploadUtil;
 import com.titashop.common.entity.User;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -178,9 +179,15 @@ public class UserController {
         redirectAttributes.addFlashAttribute("message", message);
 
         return "redirect:/users";
-
-
     }
+
+    @GetMapping("/users/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        var listUsers = service.listAll();
+        UserCsvExport exporter = new UserCsvExport();
+        exporter.export(listUsers,response);
+    }
+
 
 
 }
