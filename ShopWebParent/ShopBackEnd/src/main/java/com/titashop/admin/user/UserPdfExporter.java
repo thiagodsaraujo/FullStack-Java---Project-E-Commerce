@@ -49,7 +49,6 @@ public class UserPdfExporter extends AbstractExporter{
         int qntd = 0;
         for(User user : listUsers){
             qntd++;
-            table.setTableEvent();
             table.addCell(String.valueOf(qntd));
             table.addCell(String.valueOf(user.getId()));
             table.addCell(String.valueOf(user.getEmail()));

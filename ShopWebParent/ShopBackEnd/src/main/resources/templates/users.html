@@ -67,13 +67,14 @@
         </div>
         <div>
             <h2 class="text-black-100">Manage Users</h2>
-            <a class="btn btn-primary ml-1 mt-1 mb-0 btn-sm" th:href="@{/users/new}">Create New User</a>
+
+            <a th:href="@{/users/new}" class=" fas fa-user-plus fa-2x icon-dark mr-2 ml-2"></a>
             &nbsp;|&nbsp;
-            <a th:href="@{/users/export/csv}">Export to CSV</a>
+            <a th:href="@{/users/export/csv}" class="fas fa-solid fa-file-csv fa-2x icon-dark mr-2"></a>
             &nbsp;|&nbsp;
-            <a th:href="@{/users/export/excel}">Export to Excel</a>
+            <a th:href="@{/users/export/excel}" class="fas fa-solid fa-file-excel fa-2x icon-dark mr-2"></a>
             &nbsp;|&nbsp;
-            <a th:href="@{/users/export/pdf}">Export to PDF</a>
+            <a th:href="@{/users/export/pdf}" class="fas fa-solid fa-file-pdf fa-2x icon-dark mr-2"></a>
 
 
         </div>
@@ -88,9 +89,13 @@
                 Find:&nbsp;
                 <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
                 &nbsp;&nbsp;
-                <input type="submit" value="Search" class="btn btn-primary"/>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
                 &nbsp;&nbsp;
-                <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+                <button type="button"  class="btn btn-secondary" onclick="clearFilter()">
+                    <i class="fas fa-eraser"></i>
+                </button>
 
 
             </form>
