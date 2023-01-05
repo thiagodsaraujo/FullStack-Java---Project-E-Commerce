@@ -43,6 +43,12 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.1.0 </version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.8</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
