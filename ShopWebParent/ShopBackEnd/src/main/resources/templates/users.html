@@ -103,19 +103,26 @@
 
         </div>
 
-        <div>
+        <div class="full-details">
             <p class="text-center font-weight-lighter">List of Users</p>
             <table class="table table-bordered table-striped table-hover table-responsive-xl table-condensed">
                 <thead class="thead-dark">
                     <tr>
-                        <th th:replace="fragments :: column_link('id', 'User Id')"/>
+                        <th class="hideable-column">
+                             <th th:replace="fragments :: column_link('id', 'User Id','tag')"/>
+                        </th>
+
                         <th>Photos</th>
-                        <th th:replace="fragments :: column_link('email', 'Email')"/>
-                        <th th:replace="fragments :: column_link('firstName', 'First Name')"/>
-                        <th th:replace="fragments :: column_link('lastName', 'Last Name')"/>
+
+                        <th class="hideable-column">
+                            <th th:replace="fragments :: column_link('email', 'Email', 'tag')"/>
+                        </th>
+
+                        <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')"/>
+                        <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')"/>
                         <th>Roles</th>
-                        <th th:replace="fragments :: column_link('enabled', 'Enabled')"/>
-                        <th th:replace="fragments :: column_link('createdDate', 'Client Since')"/>
+                        <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')"/>
+                        <th th:replace="fragments :: column_link('createdDate', 'Client Since', 'none')"/>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -127,14 +134,14 @@
                     e abaixo dentro dessa sintaxe coloca cada atributo do Usuario-->
                     <!--/*@thymesVar id="listUsers" type=""*/-->
                     <tr th:each="user: ${listUsers}">
-                        <td>[[${user.id}]]</td>
+                        <td class="hideable-column">[[${user.id}]]</td>
                         <td><!--/*@thymesVar id="photos" type="images"*/-->
                         <span th:if="${user.photos == null}" class="fas fa-image-portrait fa-3x icon-silver"></span>
                             <!--/*@thymesVar id="getPhotosImagePath" type=""*/-->
                             <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
                             style="width: 80px"/>
                         </td>
-                        <td>[[${user.email}]]</td>
+                        <td class="hideable-column">[[${user.email}]]</td>
                         <td>[[${user.firstName}]]</td>
                         <td>[[${user.lastName}]]</td>
                         <td>[[${user.roles}]]</td>
@@ -167,6 +174,41 @@
             </table>
         </div>
 
+        <div class="less-details">
+            <div th:each="user : ${listUsers}" class="row m-2">
+                <div class="col-4">
+                    <span th:if="${user.photos == null}" class="fas fa-image-portrait fa-5x icon-silver"></span>
+                    <!--/*@thymesVar id="getPhotosImagePath" type=""*/-->
+                    <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+                         style="width: 80px"/>
+                </div>
+                <div class="col-8">
+                    <div>[[${user.fullName}]]</div>
+                    <div>[[${user.roles}]]</div>
+                    <div class="mt-1">
+
+                        <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green mr-2"
+                           th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+                           title="Disable this user">'</a>
+                        &nbsp;&nbsp;
+                        <a th:if="${user.enabled == false}" class="fas fa-check-circle fa-2x icon-silver mr-2"
+                           th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+                           title="Enable this user"></a>
+                        &nbsp;&nbsp;
+                        <a class="fas fa-light fa-pen-to-square fa-2x icon-crimson"
+                            th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user"></a>
+                        &nbsp;&nbsp;
+                        <a class="fas fa-trash fa-2x icon-black link-delete"
+                           th:href="@{'/users/delete/' + ${user.id}}"
+                           th:userId="${user.id}"
+                           title="Delete this User"></a>
+                    </div>
+                </div>
+                <div></div>
+                <div>&nbsp;</div>
+            </div>
+        </div>
+
         <div th:if="${totalItems > 0}">
             <h3 class="text-center mb-2">Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h3>
         </div>
@@ -177,7 +219,7 @@
 
         <div th:if="${totalPages > 1}">
         <nav>
-            <ul class="pagination justify-content-center mb-5">
+            <ul class="pagination justify-content-center mb-2 flex-wrap>
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
                     <a th:replace="fragments :: page_link(1, 'First')"></a>
