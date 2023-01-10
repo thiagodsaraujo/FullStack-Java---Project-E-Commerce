@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
- 
+
     <title>Tita Shop Admin Control Panel</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+
 </head>
 <body>
     <div class="container-fluid">
@@ -55,6 +61,16 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/settings}">Settings</a>
                         </li>
+                        <li>
+                            <span class="fas fa-user fa-2x icon-silver"></span>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" sec:authentication="principal.fullname"
+                            ></a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="">Logout</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -62,7 +78,7 @@
         <div>
             <h1>Tita Shop Control Panel</h1>
         </div>
- 
+
         <div>
             <p>Tita Shop  Control Panel - Todos os Direitos Reservados &copy; Shopme</p>
         </div>
