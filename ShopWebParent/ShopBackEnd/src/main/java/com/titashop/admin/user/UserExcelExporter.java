@@ -92,7 +92,12 @@ public class UserExcelExporter extends AbstractExporter{
             createCell(row, columIndex++, user.getLastName(), cellStyle);
             createCell(row, columIndex++, user.getRoles().toString(), cellStyle);
             createCell(row, columIndex++, user.isEnabled(), cellStyle);
-            createCell(row, columIndex, user.getCreatedDate().toString(), cellStyle);
+
+            if (user.getCreatedDate() != null){
+                createCell(row, columIndex, user.getCreatedDate().toString(), cellStyle);
+            } else {
+                createCell(row, columIndex, "null", cellStyle);
+            }
         }
     }
 
