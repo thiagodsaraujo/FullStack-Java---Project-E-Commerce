@@ -42,7 +42,7 @@ public class User {
      * role_id => referencia o id de roles
      * e faz da seguinte maneira e o Jpa já vai criar a nova tbl intermediaria para fazer as junções
     */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles", //nome da table a ser criada
             joinColumns = @JoinColumn(name = "user_id"),

@@ -8,8 +8,11 @@
 *.icon-green{color:darkgreen}
 *.icon-dark{color: black}
 
-h3{
+h3 {
     text-align: center;
+    font-weight: bolder;
+    font-family: Calibri;
+    font-size: larger;
 }
 
 .pagination {

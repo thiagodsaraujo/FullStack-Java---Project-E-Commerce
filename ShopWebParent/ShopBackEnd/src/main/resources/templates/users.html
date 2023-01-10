@@ -219,10 +219,11 @@
 
         <div th:if="${totalPages > 1}">
         <nav>
-            <ul class="pagination justify-content-center mb-2 flex-wrap>
+
+                <ul class="pagination justify-content-center mb-2 flex-wrap">
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(1, 'First')"></a>
+                <a th:replace="fragments :: page_link(1, 'First')"></a>
                 </li>
 
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">

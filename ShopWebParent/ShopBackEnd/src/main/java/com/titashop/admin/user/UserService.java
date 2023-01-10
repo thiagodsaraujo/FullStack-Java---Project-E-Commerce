@@ -56,21 +56,45 @@ public class UserService {
         return (List<Role>) roleRepo.findAll();
    }
 
+//    public User save(User user) {
+//
+//        boolean isUpdatingUser = (user.getId() != null); // se não for novo usuário ele já possui id
+//
+//        User existingUser = userRepo.findById(user.getId()).get();
+//        user.setCreatedDate(existingUser.getCreatedDate());// se nao preencher o campo salva a senha que ja está
+//
+//        if (isUpdatingUser) {
+//            if (user.getPassword().isEmpty()){
+//                user.setPassword(existingUser.getPassword());
+//            } else {
+//                encodePassword(user); // se nao salvo a senha nova
+//            }
+//         } else {
+//            encodePassword(user);
+//            user.setCreatedDate(existingUser.getCreatedDate());
+//        }
+//        user.setCreatedDate(existingUser.getCreatedDate());
+//        return userRepo.save(user);
+//    }
+
     public User save(User user) {
-        boolean isUpdatingUser = (user.getId() != null); // se não for novo usuário ele já possui id
-        User existingUser = userRepo.findById(user.getId()).get();
-        user.setCreatedDate(existingUser.getCreatedDate());// se nao preencher o campo salva a senha que ja está
+
+        boolean isUpdatingUser = (user.getId() != null);
+
         if (isUpdatingUser) {
-            if (user.getPassword().isEmpty()){
+            User existingUser = userRepo.findById(user.getId()).get();
+            if (user.getPassword().isEmpty()) {
                 user.setPassword(existingUser.getPassword());
+
             } else {
-                encodePassword(user); // se nao salvo a senha nova
+                encodePassword(user);
+
             }
-         } else {
+
+        } else {
             encodePassword(user);
-            user.setCreatedDate(existingUser.getCreatedDate());
         }
-        user.setCreatedDate(existingUser.getCreatedDate());
+
         return userRepo.save(user);
     }
 

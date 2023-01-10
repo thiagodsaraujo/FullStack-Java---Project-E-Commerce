@@ -78,7 +78,7 @@ public class UserRepositoryTests {
 
     @Test
     public void testGetUserById(){
-        var userId1 = repo.findById(1).get();
+        var userId1 = repo.findById(2).get();
         var userId2 = repo.findById(5).get();
         System.out.println(userId1);
         System.out.println(userId2);
@@ -119,7 +119,7 @@ public class UserRepositoryTests {
     @Test
     public void lookupUser(){
         Integer userId = 9;
-        var byId = repo.findById(1);
+        var byId = repo.findById(3);
         System.out.println("-------------------------------------------");
         System.out.println(byId.get().getFirstName().toString());
         System.out.println(byId.get().getCreatedDate().toString());
