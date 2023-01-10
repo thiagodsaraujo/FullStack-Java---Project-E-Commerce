@@ -59,7 +59,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 
-            http.authenticationProvider(authenticationProvider());
+//            http.authenticationProvider(authenticationProvider());
             return http.build();
         }
 
