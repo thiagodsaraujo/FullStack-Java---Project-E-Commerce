@@ -1,106 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th:="http://www.thyemeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
-
-    <title>Tita Shop Admin Control Panel</title>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
-
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</head>
+<head th:replace="fragments :: page_head('Home - TitaShop Admin')"/>
 <body>
     <div class="container-fluid">
-        <div>
-            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-                <input type="submit"/>
-            </form>
-<!--                <form name="logout" th:action="@{/logout}" method="post">-->
-<!--                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-<!--                    <td><input name="logout" type="submit" value="Logout" /></td>-->
-<!--                </form>-->
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/images/ShopmeAdminSmall.png}">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-                    <span class="navbar-toggler-icon"> </span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="topNavbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/users}">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/categories}">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/brands}">Brands</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/products}">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/customers}">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/shipping}">Shipping</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/orders}">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/report}">Sales Report</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/articles}">Articles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/menus}">Menus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/settings}">Settings</a>
-                        </li>
-                        <li>
-                            <span class="fas fa-user fa-2x icon-silver m-3"></span>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"
-                               sec:authentication="principal.fullName"></a>
-<!--                            <img th:src="@{${#authentication.principal.PhotosImagePath}}" width="48" />-->
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="logoutLink" href="">Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-
+        <div th:replace="navigation :: menu"></div>
         <div>
             <h1>Tita Shop Control Panel</h1>
         </div>
 
-        <div>
-            <p>Tita Shop  Control Panel - Todos os Direitos Reservados &copy; Shopme</p>
-        </div>
+        <div th:replace="footer :: footer"/>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#logoutLink").on("click", function(e){
-                e.preventDefault();
-                document.logoutForm.submit();
-            });
-        });
-    </script>
 
 
 </body>
