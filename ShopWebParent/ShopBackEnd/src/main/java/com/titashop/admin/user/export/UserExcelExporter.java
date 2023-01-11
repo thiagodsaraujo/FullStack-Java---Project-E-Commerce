@@ -1,18 +1,15 @@
-package com.titashop.admin.user;
+package com.titashop.admin.user.export;
 
+import com.titashop.admin.user.AbstractExporter;
 import com.titashop.common.entity.User;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-public class UserExcelExporter extends AbstractExporter{
+public class UserExcelExporter extends AbstractExporter {
 
     private XSSFWorkbook workbook;
 

@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head(${pageTitle})"/>
+<head th:replace="fragments :: page_head('Your Account Details')"/>
 <body>
 
     <div class="container-fluid">
         <div th:replace="navigation :: menu"></div>
-        <div>
-            <h2 class="text-black-100 m-3">Manage Users | [[${pageTitle}]]</h2>
-        </div>
+
 
         <div>
-            <form th:action="@{/users/save}" method="post" style="max-width: 700px;margin: 0 auto"
+            <form th:action="@{/account/update}" method="post" style="max-width: 700px;margin: 0 auto"
                   enctype="multipart/form-data"
-            th:object="${user}" onsubmit="return checkEmailUnique(this);">
+            th:object="${user}">
                 <input type="hidden" th:field="*{id}"/>
+
+                <div>
+                    <h2 class="text-center text-black-100 m-3">Your Account Details</h2>
+                </div>
+
                 <div class="border border-secondary rounded p-3">
 
                     <div class="form-group row">
                             <label class="col-sm-4 col-form-label">E-mail:</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" th:field="*{email}" required minlength="8"
-                                maxlength="128"/>
+                                <input type="email" class="form-control" th:field="*{email}" readonly="readonly"/>
                             </div>
                         </div>
 
@@ -54,24 +56,9 @@
                         </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Roles:</label>
+                                <label class="col-sm-4 col-form-label">Assigned Roles:</label>
                                 <div class="col-sm-8">
-                                    <th:block th:each="role : ${listRoles}">
-                                        <input type="checkbox" th:field="*{roles}"
-                                               th:text="${role.name}"
-                                               th:value="${role.id}"
-                                               class="m-2"
-                                        />
-                                        - <small>[[${role.description}]]</small>
-                                        <br/>
-                                    </th:block>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Enabled:</label>
-                                <div class="col-sm-8">
-                                    <input type="checkbox" th:field="*{enabled}" class="m-2" />
+                                    <span> <b>[[${user.roles}]]</b></span>
                                 </div>
                             </div>
 
@@ -94,6 +81,7 @@
                 </div>
             </form>
             <div th:replace="footer :: footer"/>
+
         </div>
         <div class="modal fade text-center" id="modalDialog">
                      <div class="modal-dialog">
@@ -119,9 +107,6 @@
     </div>
 
     <script type="text/javascript">
-
-
-
         $(document).ready(function(){
 
             $("#buttonCancel").on("click", function(){
@@ -153,8 +138,6 @@
             reader.readAsDataURL(file);
         }
 
-
-
         $(document).ready(function(){
 
             $("#backCancel").on("click", function(){
@@ -164,41 +147,6 @@
             });
 
         });
-
-
-
-        function checkEmailUnique(form){
-
-            url = "[[@{/users/check_email}]]";
-
-            userEmail = $("#email").val();
-
-            userId = $("#id").val();
-
-            csrfValue = $("input[name='_csrf']").val();
-
-            params = {id: userId, email: userEmail, _csrf: csrfValue};
-
-            $.post(url,params,function(response){
-                if(response == "OK"){
-                    form.submit();
-                } else if(response == "Duplicated"){
-                    showModalDialog("Warning", "There is another user using this email! " + userEmail);
-                } else {
-                    showModalDialog("Error", "Unknown response from server");
-                }
-            }).fail(function (){
-                showModalDialog("Error", "Could not connect to the server");
-            });
-            return false;
-        }
-
-        function showModalDialog(title, message) {
-            $("#modalTitle").text(title);
-            $("#modalBody").text(message);
-            $("#modalDialog").modal("show");
-
-        }
     </script>
 
 </body>
