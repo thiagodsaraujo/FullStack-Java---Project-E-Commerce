@@ -118,4 +118,12 @@ public class TitaShopUserDetails implements UserDetails {
 
         return "/user-photos/"+this.user.getId() +"/" +this.user.getPhotos();
     }
+
+    public void setFirstName(String firstName){
+        this.user.setFirstName(firstName);
+    }
+
+    public void setLastName(String lastName){
+        this.user.setFirstName(lastName);
+    }
 }

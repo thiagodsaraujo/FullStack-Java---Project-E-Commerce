@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -100,6 +101,24 @@ public class UserService {
         }
 
         return userRepo.save(user);
+    }
+
+    public User updateAccount(User userInform){
+        var userInDB = userRepo.findById(userInform.getId()).get();
+
+        if (!userInform.getPassword().isEmpty()){
+            userInDB.setPassword(userInform.getPassword());
+            encodePassword(userInDB);
+        }
+
+        if (userInform.getPhotos() != null){
+            userInDB.setPhotos(userInform.getPhotos());
+        }
+
+        userInDB.setFirstName(userInform.getFirstName());
+        userInDB.setLastName(userInform.getLastName());
+
+        return userRepo.save(userInDB);
     }
 
     // método para encodar o password
