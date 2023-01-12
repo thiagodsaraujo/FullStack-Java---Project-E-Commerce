@@ -75,6 +75,7 @@ h3 {
 /*    small screen*/
     div.full-details { display: none}
     div.less-details { display: block}
+    #accountIcon{padding-left: 0}
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px){
@@ -82,6 +83,7 @@ h3 {
     div.full-details {display: block}
     div.less-details {display: none}
     .hideable-column {display: none}
+    #accountIcon{padding-left: 0}
 
 }
 
