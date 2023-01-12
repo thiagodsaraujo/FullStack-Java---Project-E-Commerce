@@ -9,7 +9,7 @@
             <h2>Tita Shop Control Panel</h2>
             Welcome
             <a th:href="@{/account}"
-               sec:authentication="principal.fullName"></a>
+               sec:authentication="principal.firstName"></a>
             <h5>Poderes:</h5> <span class="m-2" sec:authentication="principal.authorities"></span>
         </div>
 

@@ -1,6 +1,5 @@
 package com.titashop.admin.user.export;
 
-import com.titashop.admin.user.AbstractExporter;
 import com.titashop.common.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.supercsv.io.CsvBeanWriter;

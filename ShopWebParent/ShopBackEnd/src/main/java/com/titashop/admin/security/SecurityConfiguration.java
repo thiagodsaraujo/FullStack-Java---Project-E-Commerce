@@ -45,7 +45,9 @@ import org.springframework.security.web.SecurityFilterChain;
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
             http.authorizeRequests()
+                    .requestMatchers("/users/**").hasAnyAuthority("Admin")
                     .anyRequest().authenticated()
+
                     .and()
                     .formLogin()
                     .loginPage("/login")

@@ -59,9 +59,6 @@ public class TitaShopUserDetails implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
-
-
-
     /**
      * Indicates whether the user's account has expired. An expired account cannot be
      * authenticated.
@@ -109,12 +106,24 @@ public class TitaShopUserDetails implements UserDetails {
     }
 
     public String getFullName(){
-
         return this.user.getFirstName() + " " + this.user.getLastName();
     }
 
+    public String getFirstName(){
+        return this.user.getFirstName();
+    }
+
+    public String getLastName(){
+        return this.user.getLastName();
+    }
+
+    public String getNomeCompleto(){
+        return this.user.getFirstName() + " " + this.user.getLastName();
+    }
+
+
     public String getPhotosImagePath() {
-        if(this.user.getId()==null||this.user.getPhotos() ==null) return "/images/pic.png";
+        if(this.user.getId()==null||this.user.getPhotos() == null) return "/images/pic.png";
 
         return "/user-photos/"+this.user.getId() +"/" +this.user.getPhotos();
     }

@@ -1,8 +1,9 @@
-package com.titashop.admin.user;
+package com.titashop.admin.user.controller;
 
 
 import com.titashop.admin.FileUploadUtil;
 import com.titashop.admin.security.TitaShopUserDetails;
+import com.titashop.admin.user.UserService;
 import com.titashop.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,7 +31,7 @@ public class AccountController {
         User user = service.getByEmail(email);
         model.addAttribute("user", user);
 
-        return "account_form";
+        return "users/account_form";
     }
 
     @PostMapping("/account/update")
