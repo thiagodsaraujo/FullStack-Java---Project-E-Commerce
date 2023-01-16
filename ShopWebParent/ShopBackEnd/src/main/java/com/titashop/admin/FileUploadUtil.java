@@ -1,5 +1,7 @@
 package com.titashop.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,6 +12,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class FileUploadUtil {
+
+//    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
+// Arquivo de log é para ser usado em produção nao em desenvolvimento
+
 
     public static void saveFile(String uploadDic, String fileName,
                                 MultipartFile multipartFile) throws IOException {
@@ -38,11 +44,13 @@ public class FileUploadUtil {
                     try {
                         Files.delete(file);
                     } catch (IOException e) {
+//                        LOGGER.error("Could not save file: " + file);
                         System.out.println("Could not delete this file: " + file);
                     }
                 }
             });
         } catch (IOException e2){
+//            LOGGER.error("Could not list directory: " + dirPath);
             System.out.println("Could not list directory: " + dirPath);
         }
     }
