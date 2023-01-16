@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
+    <title>Unexpected Error</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/500.css}"/>
+</head>
+
+<div class="container">
+    <img src="https://i.imgur.com/qIufhof.png" />
+
+    <h1>
+        <span>500</span> <br/>
+        Internal server error
+    </h1>
+    <p>We are currently trying to fix the problem.</p>
+    <p class="info">
+        Illustration taken from
+        <a href="https://www.kapwing.com/404-illustrations" target="_blank"
+        >kapwing.com</a
+        >
+    </p>
+</div>
+
+<div th:replace="footer :: footer"/>
+
+</html>
