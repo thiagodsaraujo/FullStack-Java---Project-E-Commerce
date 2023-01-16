@@ -38,6 +38,17 @@ public class Category {
     public Category() {
     }
 
+    public Category(String name) {
+        this.name = name;
+        this.alias = name;
+        this.image = "Default_Image";
+    }
+
+    public Category(String name, Category parent) {
+        this(name); // vai chamar o primeiro construtor
+        this.parent = parent;
+    }
+
     public Category(String name, String alias, String image, boolean enabled, Category parent, Set<Category> children) {
         this.name = name;
         this.alias = alias;
