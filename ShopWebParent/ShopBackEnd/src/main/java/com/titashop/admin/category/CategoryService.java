@@ -35,17 +35,18 @@ public class CategoryService {
 
     public List<Category> listCategoriesUsedInForm(){
         List<Category> categoriesUsedInForm = new ArrayList<>();
+
         var categoriesInDB = cateRepo.findAll();
 
         for (Category category : categoriesInDB){
             if (category.getParent() == null){
-                categoriesUsedInForm.add(new Category(category.getName()));
+                categoriesUsedInForm.add(Category.copyIdAndName(category));
 
                 var children = category.getChildren();
 
                 for (Category subCategory : children){
                     String name = "--" + subCategory.getName();
-                    categoriesUsedInForm.add(new Category(name));
+                    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
                     listChildren(categoriesUsedInForm, subCategory, 1);
                 }
             }
@@ -66,7 +67,7 @@ public class CategoryService {
             }
             name += subCategory.getName();
 
-            categoriesUsedInForm.add(new Category(name));
+            categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(), name));
 
             listChildren(categoriesUsedInForm, subCategory, newSubLevel);
         }
@@ -88,16 +89,6 @@ public class CategoryService {
     }
 
     public Category save(Category category){
-
-        boolean isUpdatingCategory = (category.getId() != null);
-
-        if (isUpdatingCategory){
-            Category existingCategory = cateRepo.findById(category.getId()).get();
-
-            if (category.getName().isEmpty()){
-                category.setName(existingCategory.getName());
-            }
-        }
         return cateRepo.save(category);
     }
 

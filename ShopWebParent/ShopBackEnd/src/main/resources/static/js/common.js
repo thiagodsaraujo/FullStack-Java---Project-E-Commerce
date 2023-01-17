@@ -8,13 +8,6 @@ $(document).ready(function(){
 });
 
 
-// function customizeDropDownMenu(){
-//     $("#accountLink").click(function (){
-//         location.href = this.href;
-//     });
-// }
-
-
 function customizeDropDownMenu() {
     $(".navbar .dropdown").hover(
         function() {
