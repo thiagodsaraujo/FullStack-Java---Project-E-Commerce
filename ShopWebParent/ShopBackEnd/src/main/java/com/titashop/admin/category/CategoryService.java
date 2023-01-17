@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,6 +30,46 @@ public class CategoryService {
 
     public List<Category> listAll(){
         return (List<Category>) cateRepo.findAll(Sort.by("id").ascending());
+    }
+
+
+    public List<Category> listCategoriesUsedInForm(){
+        List<Category> categoriesUsedInForm = new ArrayList<>();
+        var categoriesInDB = cateRepo.findAll();
+
+        for (Category category : categoriesInDB){
+            if (category.getParent() == null){
+                categoriesUsedInForm.add(new Category(category.getName()));
+
+                var children = category.getChildren();
+
+                for (Category subCategory : children){
+                    String name = "--" + subCategory.getName();
+                    categoriesUsedInForm.add(new Category(name));
+                    listChildren(categoriesUsedInForm, subCategory, 1);
+                }
+            }
+        }
+
+        return categoriesUsedInForm;
+    }
+
+    private void listChildren(List<Category> categoriesUsedInForm, Category parent, int subLevel)    {
+
+        int newSubLevel = subLevel + 1;
+        var children = parent.getChildren();
+
+        for (Category subCategory : children){
+            String name = "";
+            for (int i = 0; i < newSubLevel; i++){
+                name += "--";
+            }
+            name += subCategory.getName();
+
+            categoriesUsedInForm.add(new Category(name));
+
+            listChildren(categoriesUsedInForm, subCategory, newSubLevel);
+        }
     }
 
     public Page<Category> listByPage(int pageNum, String sortField, String sortDir, String keyword){
