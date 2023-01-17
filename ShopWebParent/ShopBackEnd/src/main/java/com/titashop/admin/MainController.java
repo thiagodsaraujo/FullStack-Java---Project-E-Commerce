@@ -12,7 +12,6 @@ public class MainController {
 	public String viewHomePage() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("username: " + auth.getName());
-
 		return "index";
 	}
 
