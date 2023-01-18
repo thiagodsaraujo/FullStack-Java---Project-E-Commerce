@@ -10,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer>, CrudRepository<Category, Integer> {
 
@@ -25,4 +27,7 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     @Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying
     public void updateEnabledStatus(Integer id, boolean enabled);
+
+    @Query("SELECT c FROM Category  c WHERE c.parent is NULL")
+    public List<Category> findRootCategories();
 }
