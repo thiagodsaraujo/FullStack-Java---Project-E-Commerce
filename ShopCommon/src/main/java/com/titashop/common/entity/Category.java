@@ -155,6 +155,13 @@ public class Category {
     public void setChildren(Set<Category> children) {
         this.children = children;
     }
+
+    @Transient
+    public String getImagePath(){
+        if (this.id == null) return "/images/image-thumbnail.png";
+        return "/category-images/" + this.id + "/" + this.image;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
