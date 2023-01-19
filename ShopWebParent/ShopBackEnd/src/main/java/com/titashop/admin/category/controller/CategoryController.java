@@ -5,6 +5,7 @@ import com.titashop.admin.category.CategoryNotFoundException;
 import com.titashop.admin.category.CategoryService;
 import com.titashop.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,9 +26,16 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping("/categories")
-    public String listAll(Model model){
-        List<Category> listCategories = service.listAll();
+    public String listAll(@Param("sortDir") String sortDir,
+                          Model model){
+
+        if (sortDir == null || sortDir.isEmpty()){
+            sortDir = "asc";
+        }
+        List<Category> listCategories = service.listAll(sortDir);
+        String reverSortDir = sortDir.equals("asc") ? "desc" : "asc";
         model.addAttribute("listCategories", listCategories);
+        model.addAttribute("reverSortDir", reverSortDir);
 
         return "categories/categories";
     }
