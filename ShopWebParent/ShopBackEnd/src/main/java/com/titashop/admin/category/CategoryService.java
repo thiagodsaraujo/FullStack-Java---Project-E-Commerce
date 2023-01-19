@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -28,7 +25,7 @@ public class CategoryService {
     }
 
     public List<Category> listAll(){
-        var rootCategories = cateRepo.findRootCategories();
+        var rootCategories = cateRepo.findRootCategories(Sort.by("name").ascending());
         return listHierachicalCategories(rootCategories);
     }
 
@@ -38,7 +35,7 @@ public class CategoryService {
         for (Category rootCategory : rootCategories){
             hierachicalCategories.add(Category.copyFull(rootCategory));
 
-            var children = rootCategory.getChildren();
+            var children = sortSubCategories(rootCategory.getChildren());
 
             for (Category subCategory : children){
                 String name = "--" + subCategory.getName();
@@ -53,7 +50,7 @@ public class CategoryService {
 
     private void listSubHierarchicalCategories(List<Category> hierachicalCategories,
                                                Category parent, int subLevel){
-        var children = parent.getChildren();
+        var children = sortSubCategories(parent.getChildren());
 
         int newSubLevel = subLevel + 1;
 
@@ -72,13 +69,13 @@ public class CategoryService {
     public List<Category> listCategoriesUsedInForm(){
         List<Category> categoriesUsedInForm = new ArrayList<>();
 
-        var categoriesInDB = cateRepo.findAll();
+        var categoriesInDB = cateRepo.findRootCategories(Sort.by("name").ascending());
 
         for (Category category : categoriesInDB){
             if (category.getParent() == null){
                 categoriesUsedInForm.add(Category.copyIdAndName(category));
 
-                var children = category.getChildren();
+                var children = sortSubCategories(category.getChildren());
 
                 for (Category subCategory : children){
                     String name = "--" + subCategory.getName();
@@ -95,7 +92,8 @@ public class CategoryService {
                                              Category parent, int subLevel)    {
 
         int newSubLevel = subLevel + 1;
-        var children = parent.getChildren();
+
+        var children = sortSubCategories(parent.getChildren());
 
         for (Category subCategory : children){
             String name = "";
@@ -169,6 +167,18 @@ public class CategoryService {
 
         return "OK";
     }
+
+    private SortedSet<Category> sortSubCategories(Set<Category> children){
+        SortedSet<Category> sortedChildren = new TreeSet<>(new Comparator<Category>() {
+            @Override
+            public int compare(Category cat1, Category cat2) {
+                return cat1.getName().compareTo(cat2.getName());
+            }
+        });
+        sortedChildren.addAll(children);
+        return sortedChildren;
+    }
+
 
     public Category get(Integer id) throws CategoryNotFoundException{
         try {
