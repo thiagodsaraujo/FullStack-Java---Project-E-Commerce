@@ -33,6 +33,7 @@ public class CategoryService {
             sort = sort.descending();
         }
         var rootCategories = cateRepo.findRootCategories(sort);
+
         return listHierachicalCategories(rootCategories, sortDir);
     }
 
@@ -42,7 +43,7 @@ public class CategoryService {
         for (Category rootCategory : rootCategories){
             hierachicalCategories.add(Category.copyFull(rootCategory));
 
-            var children = sortSubCategories(rootCategory.getChildren(), sortDir);
+            Set<Category> children = sortSubCategories(rootCategory.getChildren(), sortDir);
 
             for (Category subCategory : children){
                 String name = "--" + subCategory.getName();
@@ -57,7 +58,7 @@ public class CategoryService {
 
     private void listSubHierarchicalCategories(List<Category> hierachicalCategories,
                                                Category parent, int subLevel, String sortDir){
-        var children = sortSubCategories(parent.getChildren(), sortDir);
+        Set<Category> children = sortSubCategories(parent.getChildren(), sortDir);
 
         int newSubLevel = subLevel + 1;
 
@@ -74,15 +75,16 @@ public class CategoryService {
     }
 
     public List<Category> listCategoriesUsedInForm(){
+
         List<Category> categoriesUsedInForm = new ArrayList<>();
 
-        var categoriesInDB = cateRepo.findRootCategories(Sort.by("name").ascending());
+        Iterable<Category> categoriesInDB = cateRepo.findRootCategories(Sort.by("name").ascending());
 
         for (Category category : categoriesInDB){
             if (category.getParent() == null){
                 categoriesUsedInForm.add(Category.copyIdAndName(category));
 
-                var children = sortSubCategories(category.getChildren());
+                Set<Category> children = sortSubCategories(category.getChildren());
 
                 for (Category subCategory : children){
                     String name = "--" + subCategory.getName();
@@ -100,7 +102,7 @@ public class CategoryService {
 
         int newSubLevel = subLevel + 1;
 
-        var children = sortSubCategories(parent.getChildren());
+        Set<Category> children = sortSubCategories(parent.getChildren());
 
         for (Category subCategory : children){
             String name = "";
@@ -190,7 +192,9 @@ public class CategoryService {
                 }
             }
         });
+
         sortedChildren.addAll(children);
+
         return sortedChildren;
     }
 
