@@ -150,7 +150,20 @@ public class CategoryService {
 
         if (isCreatingNew){
             if (categoryByName != null){
-                return "Duplicated Name";
+                return "DuplicatedName";
+            } else {
+                var categoryByAlias = cateRepo.findByAlias(alias);
+                if (categoryByAlias != null){
+                    return "DuplicatedAlias";
+                }
+            }
+        } else {
+            if (categoryByName != null && categoryByName.getId() != id){
+                return "DuplicatedName";
+            }
+            var categoryByAlias = cateRepo.findByAlias(alias);
+            if (categoryByAlias != null && categoryByAlias.getId() != id){
+                return "DuplicatedAlias";
             }
         }
 

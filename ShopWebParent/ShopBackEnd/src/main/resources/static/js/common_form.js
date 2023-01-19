@@ -30,11 +30,23 @@ function showImageThumbnail(fileInput){
 }
 
 $(document).ready(function(){
-
     $("#backCancel").on("click", function(){
-
         window.location = "[[@{/users}]]";
-
     });
 
 });
+
+function showModalDialog(title, message) {
+    $("#modalTitle").text(title);
+    $("#modalBody").text(message);
+    $("#modalDialog").modal("show");
+
+}
+
+function showWarningModal(message){
+    showModalDialog("Warning", message);
+}
+
+function showErrorModal(message){
+    showModalDialog("Error", message);
+}

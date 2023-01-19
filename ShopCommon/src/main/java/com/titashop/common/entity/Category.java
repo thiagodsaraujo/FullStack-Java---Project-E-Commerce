@@ -168,18 +168,5 @@ public class Category {
         return "/category-images/" + this.id + "/" + this.image;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", alias='" + alias + '\'' +
-                ", image='" + image + '\'' +
-                ", enabled=" + enabled +
-                ", parent=" + parent +
-                ", children=" + children +
-                '}';
-    }
-
 }
 
