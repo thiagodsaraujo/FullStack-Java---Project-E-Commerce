@@ -18,6 +18,10 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     @Query("SELECT c FROM Category c WHERE c.name = :name")
     public Category getCategoryByName(@Param("name") String name);
 
+    public Category findByName(String name);
+
+    public Category findByAlias(String alias);
+
 
     @Query("SELECT c FROM Category c WHERE CONCAT(c.id, ' ',c.alias, ' ', c.name) LIKE %?1%")
     Page<Category> findAll(String keyword, Pageable pageable);

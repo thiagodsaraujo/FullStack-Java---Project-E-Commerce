@@ -143,21 +143,18 @@ public class CategoryService {
     }
 
 
-    public boolean isNameUnique(Integer id, String name){
-        var categoryByName = cateRepo.getCategoryByName(name);
+    public String checkIsNameUnique(Integer id, String name, String alias){
+        boolean isCreatingNew = (id == null || id == 0);
 
-        if (categoryByName == null) return true;
-
-        boolean isCreatingNew = (id == null);
+        var categoryByName = cateRepo.findByName(name);
 
         if (isCreatingNew){
-            if (categoryByName != null) return false;
-        } else {
-            if (categoryByName.getId() != id){
-                return false;
+            if (categoryByName != null){
+                return "Duplicated Name";
             }
         }
-        return true;
+
+        return "OK";
     }
 
     public Category get(Integer id) throws CategoryNotFoundException{
