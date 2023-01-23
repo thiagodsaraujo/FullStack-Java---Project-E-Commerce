@@ -9,6 +9,7 @@
 
         <a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
         <a th:href="@{/categories/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+
     </div>
 
     <div th:if="${message != null}" class="alert alert-success text-center">
@@ -17,7 +18,7 @@
 
     <div>
         <form th:action="@{/categories/page/1}" class="form-inline m-3">
-            Filter:&nbsp;&nbsp;
+            Filter:&nbsp;
             <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
             &nbsp;&nbsp;
             <button type="submit" class="btn btn-primary">
@@ -37,7 +38,7 @@
                 <th>ID</th>
                 <th>Category Image</th>
                 <th>
-                    <a class="text-white" th:href="@{'/categories?sortDir=' + ${reverseSortDir}}">Category Name</a>
+                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir}}">Category Name</a>
                     <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
                 </th>
                 <th>Alias</th>
@@ -64,10 +65,13 @@
         </table>
     </div>
 
-    <div th:replace="modal_fragments :: confirm_modal"></div>
-    <div th:replace="footer :: footer"></div>
-</div>
+    <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
 
+    <div th:replace="modal_fragments :: confirm_modal" />
+
+    <div th:replace="fragments :: footer"></div>
+
+</div>
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
     moduleURL = "[[@{/categories}]]";

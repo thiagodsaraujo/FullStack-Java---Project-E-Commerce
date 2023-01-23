@@ -144,47 +144,15 @@
             </div>
         </div>
 
-        <div th:if="${totalItems > 0}">
-            <h3 class="text-center mb-2">Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</h3>
-        </div>
-
-        <div th:unless="${totalItems > 0}">
-            <h2 class="text-center m-3"> No Users found </h2>
-        </div>
-
-        <div th:if="${totalPages > 1}">
-        <nav>
-
-                <ul class="pagination justify-content-center mb-2 flex-wrap">
-
-                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                <a th:replace="fragments :: page_link(1, 'First')"></a>
-                </li>
-
-                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
-                </li>
-<!--                erro para clicar na lista de paginação 31:29-->
-                <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"
-                    th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a th:replace="fragments :: page_link(${i}, ${i})"></a>
-                </li>
-
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
-                </li>
-
-                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
-                </li>
-            </ul>
-        </nav>
-        </div>
 
 
+
+
+        <div th:replace="fragments :: pagination('/users', 'users')"/>
         <div th:replace="modal_fragments :: confirm_modal" />
-        <div th:replace="footer :: footer"/>
+        <div th:replace="fragments :: footer"/>
     </div>
+
 
             <script type="text/javascript">
             $(document).ready(function (){

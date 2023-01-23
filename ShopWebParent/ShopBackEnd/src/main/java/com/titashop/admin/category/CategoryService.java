@@ -16,7 +16,7 @@ import java.util.*;
 @Transactional
 public class CategoryService {
 
-    private static final int CATEGORIES_PER_PAGE = 5;
+    private static final int CATEGORIES_PER_PAGE = 3;
     @Autowired
     private CategoryRepository cateRepo;
 
@@ -24,7 +24,7 @@ public class CategoryService {
         return cateRepo.getCategoryByName(name);
     }
 
-    public List<Category> listAll(String sortDir){
+    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir){
         Sort sort = Sort.by("name");
 
         if (sortDir.equals("asc")){
@@ -32,7 +32,14 @@ public class CategoryService {
         } else if (sortDir.equals("desc")){
             sort = sort.descending();
         }
-        var rootCategories = cateRepo.findRootCategories(sort);
+
+        Pageable pageable = PageRequest.of(pageNum  -1, CATEGORIES_PER_PAGE, sort);
+
+        var pageCategories = cateRepo.findRootCategories(pageable);
+        var rootCategories = pageCategories.getContent();
+
+        pageInfo.setTotalElements(pageCategories.getTotalElements());
+        pageInfo.setTotalPages(pageCategories.getTotalPages());
 
         return listHierachicalCategories(rootCategories, sortDir);
     }

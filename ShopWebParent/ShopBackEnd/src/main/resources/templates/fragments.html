@@ -1,94 +1,122 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="page_head(title)">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
 
     <title>[[${title}]]</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/common.js}"></script>
-
-
-    <!--    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/common.js}" ></script>
 </head>
 <body>
-<!--        <th th:fragment="column_link(fieldName,columLabel)">-->
-        <th th:fragment="column_link(fieldName,columLabel,removeTag)" th:remove="${removeTag}">
 
-            <a class="text-white"
-               th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
-                [[${columLabel}]]
-            </a>
-            <span th:if="${sortField == fieldName}"
-                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
-                                    </span>
-        </th>
+<div th:fragment="footer" class="text-center m-3">
+    <p>Tita Shop Control Panel - Copyright &copy; Shopme</p>
+</div>
 
+<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+    <a class="text-white"
+       th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+        [[${columnLabel}]]
+    </a>
+    <span th:if="${sortField == fieldName}"
+          th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
+</th>
 
-                <a th:fragment="page_link(pageNum, label)"
-                   class="page-link"
-                   th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+<a th:fragment="page_link(moduleURL, pageNum, label)"
+   class="page-link"
+   th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
+<div th:fragment="user_photos" th:remove="tag">
+    <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+    <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+         style="width: 100px" />
+</div>
 
-        <div th:fragment="user_photos" th:remove="tag">
-            <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
-            <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
-                 style="width: 100px" />
-        </div>
+<div th:fragment="user_status" th:remove="tag">
+    <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+       th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+       title="Disable this user"
+    ></a>
 
-        <div th:fragment="user_status" th:remove="tag">
-            <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-               th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
-               title="Disable this user"
-            ></a>
+    <a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+       th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+       title="Enable this user"
+    ></a>
+</div>
 
-            <a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
-               th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
-               title="Enable this user"
-            ></a>
-        </div>
+<div th:fragment="user_actions" th:remove="tag">
+    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+       title="Edit this user"></a>
+    &nbsp;
+    <a class="fas fa-trash fa-2x icon-dark link-delete"
+       th:href="@{'/users/delete/' + ${user.id}}"
+       th:entityId="${user.id}"
+       title="Delete this user"></a>
+</div>
 
-        <div th:fragment="user_actions" th:remove="tag">
-            <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
-               title="Edit this user"></a>
-            &nbsp;
-            <a class="fas fa-trash fa-2x icon-dark link-delete"
-               th:href="@{'/users/delete/' + ${user.id}}"
-               th:entityId="${user.id}"
-               title="Delete this user"></a>
-        </div>
+<div th:fragment="category_status" th:remove="tag">
+    <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+       th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
+       title="Disable this category"
+    ></a>
 
+    <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+       th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
+       title="Enable this category"
+    ></a>
+</div>
 
-        <div th:fragment="category_status" th:remove="tag">
-            <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-               th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
-               title="Disable this category"
-            ></a>
+<div th:fragment="category_actions" th:remove="tag">
+    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
+       title="Edit this category"></a>
+    &nbsp;
+    <th:block th:if="${cat.hasChildren == false}">
+        <a class="fas fa-trash fa-2x icon-dark link-delete"
+           th:href="@{'/categories/delete/' + ${cat.id}}"
+           th:entityId="${cat.id}"
+           title="Delete this category"></a>
+    </th:block>
+</div>
 
-            <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
-               th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
-               title="Enable this category"
-            ></a>
-        </div>
+<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">
+    <div class="text-center m-1" th:if="${totalItems > 0}">
+        <span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+    </div>
+    <div class="text-center m-1" th:unless="${totalItems > 0}">
+        <span>No [[${entityName}]] found</span>
+    </div>
 
-        <div th:fragment="category_actions" th:remove="tag">
-            <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
-               title="Edit this category"></a>
-            &nbsp;
-            <th:block th:if="${cat.hasChildren == false}">
-                <a class="fas fa-trash fa-2x icon-dark link-delete"
-                   th:href="@{'/categories/delete/' + ${cat.id}}"
-                   th:entityId="${cat.id}"
-                   title="Delete this category"></a>
-            </th:block>
-        </div>
+    <div th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center flex-wrap">
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+                </li>
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage - 1}, 'Previous')"></a>
+                </li>
 
+                <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
+                    th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i})"></a>
+                </li>
 
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragments :: page_link(${moduleURL}, ${currentPage + 1}, 'Next')"></a>
+                </li>
 
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a th:replace="fragments :: page_link(${moduleURL}, ${totalPages}, 'Last')"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 </body>
 </html>

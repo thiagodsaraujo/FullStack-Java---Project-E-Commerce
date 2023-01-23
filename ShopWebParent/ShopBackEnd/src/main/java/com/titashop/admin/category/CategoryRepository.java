@@ -35,4 +35,8 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 
     @Query("SELECT c FROM Category  c WHERE c.parent is NULL")
     public List<Category> findRootCategories(Sort sort);
+
+    @Query("SELECT c FROM Category  c WHERE c.parent is NULL")
+    public Page<Category> findRootCategories(Pageable pageable);
+
 }
