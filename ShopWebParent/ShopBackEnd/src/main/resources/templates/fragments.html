@@ -29,78 +29,64 @@
                                     </span>
         </th>
 
-            <!--Código Antigo abaixo, ele refaturou e colocou como fragmento-->
-
-<!--                        <th>-->
-<!--                            <a th:if="${sortField != 'email'}" class="text-white"-->
-<!--                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">-->
-<!--                                E-mail-->
-<!--                            </a>-->
-
-<!--                            <a th:if="${sortField == 'email'}" class="text-white"-->
-<!--                               th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">-->
-<!--                                E-mail-->
-<!--                            </a>-->
-
-<!--                            <span th:if="${sortField == 'email'}"-->
-<!--                                  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">-->
-<!--                            </span>-->
-
-<!--                        </th>-->
 
                 <a th:fragment="page_link(pageNum, label)"
                    class="page-link"
                    th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
-<!--                    &lt;!&ndash;                Código antigo abaixo da paginação&ndash;&gt;-->
-<!--                    -->
-<!--                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-<!--                        <a class="page-link" id="first-li" th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' +-->
-<!--                                        ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>-->
-<!--                    </li>-->
-<!--                    -->
-<!--                    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">-->
-<!--                        <a class="page-link" id="previous-li" th:href="@{'/users/page/' + ${currentPage - 1} +-->
-<!--                                        '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>-->
-<!--                    </li>-->
-<!--                    &lt;!&ndash;                erro para clicar na lista de paginação 31:29&ndash;&gt;-->
-<!--                    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}"-->
-<!--                        th:each="i : ${#numbers.sequence(1, totalPages)}">-->
-<!--                        <a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>-->
-<!--                    </li>-->
-<!--                    -->
-<!--                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">-->
-<!--                        &lt;!&ndash;                <li class="page-item">&ndash;&gt;-->
-<!--                        <a class="page-link" id="next-li" th:href="@{'/users/page/' + ${currentPage + 1} +-->
-<!--                                        '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>-->
-<!--                    </li>-->
-<!--                    -->
-<!--                    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">-->
-<!--                        <a class="page-link" id="last-li" th:href="@{'/users/page/' + ${totalPages} +-->
-<!--                                        '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>-->
-<!--                    </li>-->
 
-<div th:fragment="category_status" th:remove="tag">
-    <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
-       th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
-       title="Disable this category"
-    ></a>
+        <div th:fragment="user_photos" th:remove="tag">
+            <span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+            <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+                 style="width: 100px" />
+        </div>
 
-    <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
-       th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
-       title="Enable this category"
-    ></a>
-</div>
+        <div th:fragment="user_status" th:remove="tag">
+            <a th:if="${user.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+               th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+               title="Disable this user"
+            ></a>
 
-<div th:fragment="category_actions" th:remove="tag">
-    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
-       title="Edit this category"></a>
-    &nbsp;
-    <a class="fas fa-trash fa-2x icon-dark link-delete"
-       th:href="@{'/categories/delete/' + ${cat.id}}"
-       th:catId="${cat.id}"
-       title="Delete this category"></a>
-</div>
+            <a th:if="${user.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+               th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+               title="Enable this user"
+            ></a>
+        </div>
+
+        <div th:fragment="user_actions" th:remove="tag">
+            <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"
+               title="Edit this user"></a>
+            &nbsp;
+            <a class="fas fa-trash fa-2x icon-dark link-delete"
+               th:href="@{'/users/delete/' + ${user.id}}"
+               th:entityId="${user.id}"
+               title="Delete this user"></a>
+        </div>
+
+
+        <div th:fragment="category_status" th:remove="tag">
+            <a th:if="${cat.enabled == true}" class="fas fa-check-circle fa-2x icon-green"
+               th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}"
+               title="Disable this category"
+            ></a>
+
+            <a th:if="${cat.enabled == false}" class="fas fa-circle fa-2x icon-dark"
+               th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}"
+               title="Enable this category"
+            ></a>
+        </div>
+
+        <div th:fragment="category_actions" th:remove="tag">
+            <a class="fas fa-edit fa-2x icon-green" th:href="@{'/categories/edit/' + ${cat.id}}"
+               title="Edit this category"></a>
+            &nbsp;
+            <th:block th:if="${cat.hasChildren == false}">
+                <a class="fas fa-trash fa-2x icon-dark link-delete"
+                   th:href="@{'/categories/delete/' + ${cat.id}}"
+                   th:entityId="${cat.id}"
+                   title="Delete this category"></a>
+            </th:block>
+        </div>
 
 
 

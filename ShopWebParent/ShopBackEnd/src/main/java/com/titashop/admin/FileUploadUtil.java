@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 
 public class FileUploadUtil {
 
-//    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
 // Arquivo de log é para ser usado em produção nao em desenvolvimento
 
 
@@ -44,14 +44,25 @@ public class FileUploadUtil {
                     try {
                         Files.delete(file);
                     } catch (IOException e) {
-//                        LOGGER.error("Could not save file: " + file);
+                        LOGGER.error("Could not save file: " + file);
                         System.out.println("Could not delete this file: " + file);
                     }
                 }
             });
         } catch (IOException e2){
-//            LOGGER.error("Could not list directory: " + dirPath);
+            LOGGER.error("Could not list directory: " + dirPath);
             System.out.println("Could not list directory: " + dirPath);
         }
     }
+
+    public static void removeDir(String dir){
+        cleanDir(dir);
+
+        try {
+            Files.delete(Paths.get(dir));
+        } catch (IOException e){
+            LOGGER.error("Could not remove directory: " + dir);
+        }
+    }
+
 }

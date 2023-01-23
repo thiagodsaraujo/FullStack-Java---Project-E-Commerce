@@ -17,7 +17,7 @@
 
     <div>
         <form th:action="@{/categories/page/1}" class="form-inline m-3">
-            Filter:&nbsp;
+            Filter:&nbsp;&nbsp;
             <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
             &nbsp;&nbsp;
             <button type="submit" class="btn btn-primary">
@@ -64,8 +64,20 @@
         </table>
     </div>
 
+    <div th:replace="modal_fragments :: confirm_modal"></div>
     <div th:replace="footer :: footer"></div>
-
 </div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+    moduleURL = "[[@{/categories}]]";
+
+    $(document).ready(function() {
+        $(".link-delete").on("click", function(e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this), 'category');
+        });
+    });
+</script>
 </body>
 </html>
