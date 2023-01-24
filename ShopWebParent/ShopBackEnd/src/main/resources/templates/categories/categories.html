@@ -25,7 +25,7 @@
                 <th>ID</th>
                 <th>Category Image</th>
                 <th>
-                    <a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Category Name</a>
+                    <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Category Name</a>
                     <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>
                 </th>
                 <th>Alias</th>
@@ -59,11 +59,11 @@
 
     <th:block th:unless="${keyword != null}">
         <div th:replace="fragments :: pagination('/categories', 'top-level categories')"></div>
-    </div>
+</div>
 
-    <div th:replace="modal_fragments :: confirm_modal" />
+<div th:replace="modal_fragments :: confirm_modal" />
 
-    <div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: footer"></div>
 
 </div>
 <script th:src="@{/js/common_list.js}"></script>

@@ -16,7 +16,8 @@ import java.util.*;
 @Transactional
 public class CategoryService {
 
-    public static final int CATEGORIES_PER_PAGE = 3;
+    public static final int ROOT_CATEGORIES_PER_PAGE = 3;
+
     @Autowired
     private CategoryRepository cateRepo;
 
@@ -34,7 +35,7 @@ public class CategoryService {
             sort = sort.descending();
         }
 
-        Pageable pageable = PageRequest.of(pageNum  -1, CATEGORIES_PER_PAGE, sort);
+        Pageable pageable = PageRequest.of(pageNum  -1, ROOT_CATEGORIES_PER_PAGE, sort);
 
         Page<Category> pageCategories = null;
 
@@ -150,7 +151,7 @@ public class CategoryService {
 
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-        Pageable pageable = PageRequest.of(pageNum -1, CATEGORIES_PER_PAGE, sort);
+        Pageable pageable = PageRequest.of(pageNum -1, ROOT_CATEGORIES_PER_PAGE, sort);
 
         if (keyword != null){
             return  cateRepo.findAll(keyword, pageable);
