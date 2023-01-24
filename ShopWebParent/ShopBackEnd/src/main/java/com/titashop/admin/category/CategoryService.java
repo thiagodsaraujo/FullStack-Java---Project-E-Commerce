@@ -16,7 +16,7 @@ import java.util.*;
 @Transactional
 public class CategoryService {
 
-    private static final int CATEGORIES_PER_PAGE = 3;
+    public static final int CATEGORIES_PER_PAGE = 3;
     @Autowired
     private CategoryRepository cateRepo;
 
@@ -24,7 +24,8 @@ public class CategoryService {
         return cateRepo.getCategoryByName(name);
     }
 
-    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir){
+    public List<Category> listByPage(CategoryPageInfo pageInfo, int pageNum, String sortDir,
+                                     String keyword){
         Sort sort = Sort.by("name");
 
         if (sortDir.equals("asc")){
@@ -35,13 +36,32 @@ public class CategoryService {
 
         Pageable pageable = PageRequest.of(pageNum  -1, CATEGORIES_PER_PAGE, sort);
 
-        var pageCategories = cateRepo.findRootCategories(pageable);
-        var rootCategories = pageCategories.getContent();
+        Page<Category> pageCategories = null;
+
+        if (keyword != null && !keyword.isEmpty()){
+            pageCategories = cateRepo.search(keyword, pageable);
+        } else {
+            pageCategories = cateRepo.findRootCategories(pageable);
+        }
+
+        List<Category> rootCategories = pageCategories.getContent();
 
         pageInfo.setTotalElements(pageCategories.getTotalElements());
         pageInfo.setTotalPages(pageCategories.getTotalPages());
 
-        return listHierachicalCategories(rootCategories, sortDir);
+        if (keyword != null && !keyword.isEmpty()){
+            List<Category> searchResult = pageCategories.getContent();
+
+            for (Category category : searchResult){
+                category.setHasChildren(category.getChildren().size() > 0);
+            }
+
+            return searchResult;
+
+        } else {
+            return listHierachicalCategories(rootCategories, sortDir);
+        }
+
     }
 
     private List<Category> listHierachicalCategories(List<Category> rootCategories, String sortDir ){
