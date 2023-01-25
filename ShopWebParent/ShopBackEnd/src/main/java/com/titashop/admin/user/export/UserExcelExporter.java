@@ -1,5 +1,6 @@
 package com.titashop.admin.user.export;
 
+import com.titashop.admin.AbstractExporter;
 import com.titashop.common.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -57,7 +58,7 @@ public class UserExcelExporter extends AbstractExporter {
     }
 
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response,"application/octet-stream",".xlsx");
+        super.setResponseHeader(response,"application/octet-stream",".xlsx", "users_");
         writeHeaderLine();
         writeDataLines(listUsers);
 

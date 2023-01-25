@@ -1,5 +1,6 @@
 package com.titashop.admin.user.export;
 
+import com.titashop.admin.AbstractExporter;
 import com.titashop.common.entity.User;
 import jakarta.servlet.http.HttpServletResponse;
 import org.supercsv.io.CsvBeanWriter;
@@ -12,7 +13,7 @@ import java.util.List;
 public class UserCsvExport extends AbstractExporter {
 
     public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-        super.setResponseHeader(response, "text/csv",".csv");
+        super.setResponseHeader(response, "text/csv",".csv", "users_");
 
         ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
 
