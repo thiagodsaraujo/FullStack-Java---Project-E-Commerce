@@ -24,4 +24,8 @@ public class BrandService {
     public List<Brand> listAllBrands(){
         return (List<Brand>) repo.findAll(Sort.by("id").ascending());
     }
+
+    public Brand save(Brand brand){
+        return repo.save(brand);
+    }
 }

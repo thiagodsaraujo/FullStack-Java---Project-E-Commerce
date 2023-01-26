@@ -76,10 +76,10 @@ public class Brand {
     }
 
     @Transient
-    public String getPhotosImagePath(){
-        if (id == null || logo == null) return "/images/default-user.png"; // ele colou image
+    public String getLogoPath(){
+        if (id == null || logo == null) return "/images/image-thumbnail.png"; // ele colou image
 
-        return "/user-photos/" + this.id + "/" + this.logo;
+        return "/brand-logos/" + this.id + "/" + this.logo;
     }
 
     @Override

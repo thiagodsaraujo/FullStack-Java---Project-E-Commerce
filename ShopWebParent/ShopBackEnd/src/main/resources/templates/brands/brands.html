@@ -33,7 +33,7 @@
                         <td><!--/*@thymesVar id="photos" type="images"*/-->
                         <span th:if="${brand.logo == null}" class="fas fa-image-portrait fa-3x icon-silver"></span>
                             <!--/*@thymesVar id="getPhotosImagePath" type=""*/-->
-                            <img th:if="${brand.logo != null}" th:src="@{${brand.photosImagePath}}"
+                            <img th:if="${brand.logo != null}" th:src="@{${brand.logoPath}}"
                             style="width: 80px"/>
                         </td>
                         <td>[[${brand.name}]]</td>

@@ -27,6 +27,7 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
+
     @GetMapping("/categories")
     public String listFirstPage(@Param("sortDir") String sortDir,
                           Model model){
