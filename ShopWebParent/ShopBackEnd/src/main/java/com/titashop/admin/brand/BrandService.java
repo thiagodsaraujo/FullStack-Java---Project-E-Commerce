@@ -62,4 +62,23 @@ public class BrandService {
         repo.deleteById(id);
     }
 
+    public String checkUniqueBrand(Integer id, String name){
+        boolean isCreatingNew = id == null || id == 0;
+
+        var brandByName = repo.findByName(name);
+
+        if (isCreatingNew){
+            if (brandByName != null){
+                return "duplicatedBrand";
+            }
+        } else {
+            if (brandByName != null && brandByName.getId() != null){
+                return "duplicatedBrand";
+            }
+        }
+
+        return "OK";
+
+    }
+
 }
