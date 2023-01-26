@@ -75,6 +75,13 @@ public class Brand {
         this.categories = categories;
     }
 
+    @Transient
+    public String getPhotosImagePath(){
+        if (id == null || logo == null) return "/images/default-user.png"; // ele colou image
+
+        return "/user-photos/" + this.id + "/" + this.logo;
+    }
+
     @Override
     public String toString() {
         return "Brand{" +
