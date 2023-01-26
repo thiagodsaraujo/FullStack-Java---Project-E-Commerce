@@ -13,4 +13,6 @@ public interface BrandRepository extends PagingAndSortingRepository<Brand, Integ
 
     @Query("SELECT b FROM Brand b where b.name = :name")
     public Brand getBrandByName(String name);
+
+    public Long countById(Integer id);
 }
