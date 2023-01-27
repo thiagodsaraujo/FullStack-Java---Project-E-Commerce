@@ -5,6 +5,7 @@ import com.titashop.admin.category.CategoryService;
 import com.titashop.common.entity.Brand;
 import com.titashop.common.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +31,43 @@ public class BrandController {
 
     @GetMapping("/brands")
     public String listAllBrands(Model model){
+        return listByPage(1, model, "name", "asc", null);
+    }
 
-        var listBrands = brandService.listAllBrands();
+    @GetMapping("/brands/page/{pageNum}")
+    private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
+                              @Param("sortField") String sortField, @Param("sortDir") String sortDir,
+                              @Param("keyword") String keyword){
 
+        Page<Brand> page = brandService.listByPage(pageNum, sortField, sortDir, keyword);
+        List<Brand> listBrands = page.getContent();
+
+        long startCount = (pageNum - 1) * BrandService.BRANDS_PER_PAGE + 1;
+        long endCount = startCount + BrandService.BRANDS_PER_PAGE - 1 ;
+
+        if (endCount > page.getTotalElements()){
+            endCount = page.getTotalElements();
+        }
+
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", reverseSortDir);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("listBrands", listBrands);
+
+
+
+
 
         return "brands/brands";
     }
-
     @GetMapping("/brands/new")
     public String newBrand(Model model){
         List<Category> listCategories = categoryService.listCategoriesUsedInForm();
