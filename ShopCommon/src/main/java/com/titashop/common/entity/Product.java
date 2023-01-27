@@ -224,4 +224,23 @@ public class Product {
     public void setBrand(Brand brand) {
         this.brand = brand;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", fullDescription='" + fullDescription + '\'' +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                ", enabled=" + enabled +
+                ", inStock=" + inStock +
+                ", cost=" + cost +
+                ", price=" + price +
+                ", discountPercent=" + discountPercent +
+                ", category=" + category +
+                ", brand=" + brand +
+                '}';
+    }
 }

@@ -12,10 +12,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.Date;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
 public class ProductRepositoryTests {
@@ -53,5 +54,45 @@ public class ProductRepositoryTests {
 
         assertThat(savedProduct).isNotNull();
         assertThat(savedProduct.getId()).isGreaterThan(0);
+    }
+    
+    @Test
+    public void listAllProducts(){
+       var iterableProcuts = repo.findAll();
+       iterableProcuts.forEach(System.out::println);
+    }
+
+    @Test
+    public void testGetProduct(){
+        Integer id = 2;
+        var findById = repo.findById(id).get();
+        System.out.println(findById.getName());
+
+        assertThat(findById).isNotNull();
+
+        assertThat(findById.getId()).isGreaterThan(0);
+    }
+
+    @Test
+    public void testUpdateProduct(){
+        Integer id = 1;
+        var findById = repo.findById(id).get();
+        findById.setPrice(999);
+        repo.save(findById);
+
+
+        var updatedProduct = entityManager.find(Product.class, id);
+
+        assertThat(updatedProduct.getPrice()).isEqualTo(999);
+    }
+
+    @Test
+    public void testDeleteProductById(){
+        Integer id = 3;
+        repo.deleteById(id);
+
+        var result = repo.findById(id);
+
+        assertThat(!result.isPresent());
     }
 }
