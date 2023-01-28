@@ -46,8 +46,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
             http.authorizeRequests()
                     .requestMatchers("/users/**").hasAnyAuthority("Admin")
-                    .requestMatchers("/categories/**").hasAnyAuthority("Admin", "Editor")
-                    .requestMatchers("/brands/**").hasAnyAuthority("Admin", "Editor")
+                    .requestMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+                    .requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

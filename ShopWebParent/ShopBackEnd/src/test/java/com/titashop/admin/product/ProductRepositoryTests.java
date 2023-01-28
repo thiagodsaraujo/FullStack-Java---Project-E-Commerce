@@ -30,7 +30,7 @@ public class ProductRepositoryTests {
 
     @Test
     public void testCreateProduct(){
-        Brand brand = entityManager.find(Brand.class, 7);
+        Brand brand = entityManager.find(Brand.class, 1);
         Category category = entityManager.find(Category.class, 10);
 
         Product product = new Product();
