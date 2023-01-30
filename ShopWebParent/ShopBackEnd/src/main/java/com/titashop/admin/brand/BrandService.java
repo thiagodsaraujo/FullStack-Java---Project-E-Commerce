@@ -29,7 +29,7 @@ public class BrandService {
     }
 
     public List<Brand> listAllBrands(){
-        return (List<Brand>) repo.findAll(Sort.by("id").ascending());
+        return (List<Brand>) repo.findAll();
     }
 
 
