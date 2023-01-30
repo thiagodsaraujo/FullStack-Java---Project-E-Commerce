@@ -66,14 +66,17 @@ public class BrandRepositoryTests {
 
     @Test
     public void  printAllBrands(){
-        var brands = repo.findAll();
+        Iterable<Brand> brands = repo.findAll();
+        brands.forEach(System.out::println);
 
-        for (Brand brand : brands){
-            System.out.println("ID: " + brand.getId());
-            System.out.println("Name: " + brand.getName());
-            System.out.println("Category:" + brand.getCategories());
+        assertThat(brands).isNotNull();
 
-        }
+//        for (Brand brand : brands){
+//            System.out.println("ID: " + brand.getId());
+//            System.out.println("Name: " + brand.getName());
+//            System.out.println("Category:" + brand.getCategories());
+//
+//        }
     }
 
     @Test
