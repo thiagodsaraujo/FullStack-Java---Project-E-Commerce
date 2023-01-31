@@ -4,6 +4,7 @@ package com.titashop.admin.product;
 import com.titashop.common.entity.Brand;
 import com.titashop.common.entity.Category;
 import com.titashop.common.entity.Product;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -94,5 +95,16 @@ public class ProductRepositoryTests {
         var result = repo.findById(id);
 
         assertThat(!result.isPresent());
+    }
+
+    @Test
+    public void getProductByName(){
+        String name = "Acer Nitro 5";
+
+        var byName = repo.findByName(name);
+
+        System.out.println(byName.getName());
+
+        Assertions.assertThat(byName).isNotNull();
     }
 }

@@ -47,6 +47,8 @@ public class Product {
     private float height;
     private float weight;
 
+    private String image;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -143,6 +145,14 @@ public class Product {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isInStock() {
