@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head(${pageTitle})" />
+<head>
+    <head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+    <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
 <body>
 <div class="container-fluid">
     <div th:replace="navigation :: menu"></div>
