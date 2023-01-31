@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class ProductController {
 
 
     @GetMapping("/products/new")
-    public String newProduct(Model model){
-        var listBrands = brandService.listAllBrands();
+    public String newProduct(Model model) {
+        List<Brand> listBrands = brandService.listAllBrands();
 
         Product product = new Product();
         product.setEnabled(true);
@@ -39,9 +40,17 @@ public class ProductController {
 
         model.addAttribute("product", product);
         model.addAttribute("listBrands", listBrands);
-        model.addAttribute("pageTitle", "Create new Product");
-
+        model.addAttribute("pageTitle", "Create New Product");
 
         return "products/product_form";
+    }
+
+    @PostMapping("/products/save")
+    public String saveProduct(Product product) {
+        System.out.println("Product Name: " + product.getName());
+        System.out.println("Brand ID: " + product.getBrand().getId());
+        System.out.println("Category ID: " + product.getCategory().getId());
+
+        return "redirect:/products";
     }
 }

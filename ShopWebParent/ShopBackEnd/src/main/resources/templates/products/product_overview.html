@@ -1,27 +1,11 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="page_head(title)">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
-
-    <title>[[${title}]]</title>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
-    <script type="text/javascript" th:src="@{/js/common.js}" ></script>
-</head>
 <body>
-
 <div th:fragment="content" th:remove="tag">
-
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Product Name:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" th:field="*{name}" required minlength="3"
-                   maxlength="256"/>
+            <input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="256"  />
         </div>
     </div>
 
@@ -29,8 +13,8 @@
         <label class="col-sm-2 col-form-label">Alias:</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" th:field="*{alias}"
-                   placeholder="Default is product name(spaces are replaced by dashes)" required minlength="3"
-                   maxlength="256"/>
+                   placeholder="Default is product name (spaces are replaced by dashes)"
+                   minlength="3" maxlength="256"  />
         </div>
     </div>
 
@@ -49,21 +33,21 @@
         <label class="col-sm-2 col-form-label">Category:</label>
         <div class="col-sm-10">
             <select th:field="*{category}" class="form-control" required>
+
             </select>
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Enabled:</label>
-        <div class="col-sm-8">
-            <input type="checkbox" th:field="*{enabled}" class="m-2" />
+        <div class="col-sm-10">
+            <input type="checkbox" th:field="*{enabled}" />
         </div>
     </div>
-
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">In Stock:</label>
-        <div class="col-sm-8">
-            <input type="checkbox" th:field="*{inStock}" class="m-2" />
+        <label class="col-sm-2 col-form-label">In-Stock:</label>
+        <div class="col-sm-10">
+            <input type="checkbox" th:field="*{inStock}" />
         </div>
     </div>
 
@@ -80,16 +64,13 @@
             <input type="number" class="form-control" th:field="*{price}"/>
         </div>
     </div>
-    
+
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Discount:</label>
         <div class="col-sm-10">
             <input type="number" class="form-control" th:field="*{discountPercent}"/>
         </div>
     </div>
-
-
 </div>
-
 </body>
 </html>

@@ -68,8 +68,8 @@ public class BrandService {
     public Brand get(Integer id) throws BrandNotFoundException {
         try {
             return repo.findById(id).get();
-        } catch (NoSuchElementException e){
-            throw new BrandNotFoundException("This Brand with ID:" + id + "dont exist");
+        } catch (NoSuchElementException ex) {
+            throw new BrandNotFoundException("Could not find any brand with ID " + id);
         }
     }
 
