@@ -4,10 +4,12 @@ import com.titashop.admin.brand.BrandService;
 import com.titashop.common.entity.Brand;
 import com.titashop.common.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.ReaderEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -15,14 +17,14 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService service;
+    private ProductService productService;
 
     @Autowired private BrandService brandService;
 
     @GetMapping("/products")
     public String listAll(Model model){
 
-        var listProducts = service.listAll();
+        var listProducts = productService.listAll();
 
         model.addAttribute("listProducts", listProducts);
 
@@ -46,11 +48,13 @@ public class ProductController {
     }
 
     @PostMapping("/products/save")
-    public String saveProduct(Product product) {
-        System.out.println("Product Name: " + product.getName());
-        System.out.println("Brand ID: " + product.getBrand().getId());
-        System.out.println("Category ID: " + product.getCategory().getId());
+    public String saveProduct(Product product, RedirectAttributes redirectAttributes) {
+        productService.save(product);
 
+        redirectAttributes.addFlashAttribute("message", "This product has been saved" +
+                "sucessfully!");
         return "redirect:/products";
     }
 }
+
+
