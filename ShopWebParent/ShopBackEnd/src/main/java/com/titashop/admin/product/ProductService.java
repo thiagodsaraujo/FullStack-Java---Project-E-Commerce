@@ -45,9 +45,9 @@ public class ProductService {
         Product productInDB = repo.findById(productInForm.getId()).get();
 
 
-        if (productInForm.getImage() != null){
-            productInDB.setImage(productInForm.getImage());
-        }
+//        if (productInForm.getImage() != null){
+//            productInDB.setImage(productInForm.getImage());
+//        }
 
         productInDB.setName(productInForm.getName());
 

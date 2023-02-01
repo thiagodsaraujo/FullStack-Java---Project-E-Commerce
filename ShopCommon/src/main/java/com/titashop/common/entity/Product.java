@@ -3,6 +3,8 @@ package com.titashop.common.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -47,6 +49,9 @@ public class Product {
     private float height;
     private float weight;
 
+    @Column(name = "main_image", nullable = false)
+    private String mainImage;
+
     private String image;
 
     @ManyToOne
@@ -56,6 +61,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductImage> images = new HashSet<>();
 
     public Product() {
     }
@@ -147,12 +155,24 @@ public class Product {
         this.enabled = enabled;
     }
 
-    public String getImage() {
-        return image;
+    public Set<ProductImage> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(Set<ProductImage> images) {
+        this.images = images;
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public void addExtraImage(String imageName){
+        this.images.add(new ProductImage(imageName, this));
     }
 
     public boolean isInStock() {
