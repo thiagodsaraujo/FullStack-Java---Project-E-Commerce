@@ -8,8 +8,8 @@ $(document).ready(function(){
         fileSize = this.files[0].size;
         // alert("File size: " + fileSize);
 
-        if(fileSize > 102400){
-            this.setCustomValidity("You must choose an image less than 100KB!");
+        if(fileSize > MAX_FILE_SIZE){
+            this.setCustomValidity("You must choose an image less than " + MAX_FILE_SIZE + " bytes");
             this.reportValidity();
         } else {
             this.setCustomValidity("");
