@@ -98,6 +98,23 @@ public class ProductRepositoryTests {
     }
 
     @Test
+    public void testSaveProductWithImages(){
+        Integer id = 1;
+        var product = repo.findById(1).get();
+
+        product.setMainImage("main image.jpg");
+        product.addExtraImage("extra_image1.png");
+        product.addExtraImage("extra_image2.png");
+        product.addExtraImage("extra_image3.png");
+
+        var savedProduct = repo.save(product);
+        System.out.println(savedProduct.getImages());
+
+        assertThat(savedProduct.getImages().size()).isEqualTo(3);
+
+    }
+
+    @Test
     public void getProductByName(){
         String name = "Acer Nitro 5";
 
