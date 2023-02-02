@@ -1,61 +1,52 @@
-$(document).ready(function(){
-
-    $("#buttonCancel").on("click", function(){
+$(document).ready(function() {
+    $("#buttonCancel").on("click", function() {
         window.location = moduleURL;
     });
 
-    $("#fileImage").change(function (){
+    $("#fileImage").change(function() {
         if (!checkFileSize(this)) {
             return;
         }
-            showImageThumbnail(this);
+
+        showImageThumbnail(this);
     });
 });
 
-function showImageThumbnail(fileInput){
-
+function showImageThumbnail(fileInput) {
     var file = fileInput.files[0];
     var reader = new FileReader();
-
-    reader.onload = function (e){
-        $("#thumbnail").attr("src", e.target.result)
+    reader.onload = function(e) {
+        $("#thumbnail").attr("src", e.target.result);
     };
+
     reader.readAsDataURL(file);
 }
 
-function checkFileSize(fileInput){
+function checkFileSize(fileInput) {
     fileSize = fileInput.files[0].size;
-    // alert("File size: " + fileSize);
 
-    if(fileSize > MAX_FILE_SIZE){
-        fileInput.setCustomValidity("You must choose an image less than " + MAX_FILE_SIZE + " bytes");
+    if (fileSize > MAX_FILE_SIZE) {
+        fileInput.setCustomValidity("You must choose an image less than " + MAX_FILE_SIZE + " bytes!");
         fileInput.reportValidity();
 
         return false;
     } else {
         fileInput.setCustomValidity("");
+
         return true;
     }
 }
 
-$(document).ready(function(){
-    $("#backCancel").on("click", function(){
-        window.location = "[[@{/users}]]";
-    });
-
-});
-
 function showModalDialog(title, message) {
     $("#modalTitle").text(title);
     $("#modalBody").text(message);
-    $("#modalDialog").modal("show");
-
+    $("#modalDialog").modal();
 }
 
-function showWarningModal(message){
-    showModalDialog("Warning", message);
-}
-
-function showErrorModal(message){
+function showErrorModal(message) {
     showModalDialog("Error", message);
+}
+
+function showWarningModal(message) {
+    showModalDialog("Warning", message);
 }

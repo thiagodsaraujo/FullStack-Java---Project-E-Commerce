@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="form-group row m-2" th:fragment="content" th:remove="tag">
-    <div class="row">
+<div th:fragment="content" th:remove="tag">
+    <div class="row" id="divProductImages">
         <div class="col border m-3 p-2">
-        <div><label>Main Image: </label></div>
-        <div class="m-3">
-            <img id="thumbnail" alt="Main image preview" class="img-fluid"
-                 th:src="@{${product.mainImagePath}}"/>
-        </div>
+            <div><label>Main Image:</label></div>
+            <div class="m-2">
+                <img id="thumbnail" alt="Main image preview" class="img-fluid"
+                     th:src="@{${product.mainImagePath}}"/>
+            </div>
             <div>
                 <input type="file" id="fileImage" name="fileImage" required
-                accept="images/png, image/jpeg">
+                       accept="image/png, image/jpeg" />
             </div>
         </div>
 
-        <div class="col border m-3 p-2">
-            <div><label>Extra Image #1: </label></div>
-            <div class="m-3">
-                <img id="extraThumbnail" alt="Extra image #1 preview" class="img-fluid"
+        <div class="col border m-3 p-2" id="divExtraImage0">
+            <div id="extraImageHeader0"><label>Extra Image #1:</label></div>
+            <div class="m-2">
+                <img id="extraThumbnail0" alt="Extra image #1 preview" class="img-fluid"
                      th:src="@{/images/image-thumbnail.png}"/>
             </div>
             <div>
-                <input type="file" id="extraImage1" name="extraImage1"
-                       accept="images/png, image/jpeg">
+                <input type="file" name="extraImage"
+                       accept="image/png, image/jpeg" />
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>
