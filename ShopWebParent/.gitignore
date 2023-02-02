@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/brand-logos/
+/category-images/
+/imgs/
+/product-images/

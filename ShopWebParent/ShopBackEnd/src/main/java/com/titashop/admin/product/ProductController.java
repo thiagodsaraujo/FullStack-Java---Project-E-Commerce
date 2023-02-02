@@ -55,24 +55,68 @@ public class ProductController {
 
     @PostMapping("/products/save")
     public String saveProduct(Product product, RedirectAttributes redirectAttributes,
-                              @RequestParam("fileImage")MultipartFile multipartFile) throws IOException {
+                              @RequestParam("fileImage")MultipartFile mainImageMultipart,
+                              @RequestParam("extraImage")MultipartFile[] extraImageMultiparts) throws IOException {
 
-        if (!multipartFile.isEmpty()){
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            product.setMainImage(fileName);
+        setMainImageName(mainImageMultipart, product);
+        setExtraImageNames(extraImageMultiparts, product);
 
-            Product savedProduct = productService.save(product);
+        Product savedProduct = productService.save(product);
+        saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
+
+        redirectAttributes.addFlashAttribute("message",
+                "This product has been saved sucessfully!");
+
+        return "redirect:/products";
+    }
+
+    private void saveUploadedImages(MultipartFile mainImageMultipart,
+                                    MultipartFile[] extraImageMultiparts,
+                                    Product savedProduct) throws IOException {
+        if (!mainImageMultipart.isEmpty()) {
+            String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
             String uploadDir = "../product-images/" + savedProduct.getId();
-
             FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        } else {
-            productService.save(product);
+            FileUploadUtil.saveFile(uploadDir, fileName, mainImageMultipart);
         }
 
-        redirectAttributes.addFlashAttribute("message", "This product has been saved" +
-                "sucessfully!");
-        return "redirect:/products";
+        if (extraImageMultiparts.length > 0){
+
+            String uploadDir = "../product-images/" + savedProduct.getId() + "/extras";
+
+            for (MultipartFile multipartFile : extraImageMultiparts) {
+                if (!multipartFile.isEmpty()) continue;
+
+                String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+            }
+            }
+
+    }
+
+    private void setExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
+
+        if (extraImageMultiparts.length > 0){
+
+            for (MultipartFile multipartFile : extraImageMultiparts){
+
+                if (!multipartFile.isEmpty()){
+                    String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+                    product.addExtraImage(fileName);
+                }
+            }
+
+        }
+    }
+
+    private void setMainImageName(MultipartFile mainImageMultipart, Product product){
+
+        if (!mainImageMultipart.isEmpty()) {
+            String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
+            product.setMainImage(fileName);
+        }
+
     }
 
     @GetMapping("/products/{id}/enabled/{status}")
@@ -93,6 +137,11 @@ public class ProductController {
                                 RedirectAttributes redirectAttributes){
         try{
             productService.deleteProduct(id);
+            String productExtraImagesDirectory = "../product-images/" + id + "/extras";
+            String productImagesDirectory = "../product-images/" + id;
+            FileUploadUtil.removeDir(productExtraImagesDirectory);
+            FileUploadUtil.removeDir(productImagesDirectory);
+
             redirectAttributes.addFlashAttribute("message", "The prodcut ID: " + id + " has been deleted sucessfully!");
         } catch (ProductNotFoundException ex){
             redirectAttributes.addFlashAttribute("message", ex.getMessage());

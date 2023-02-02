@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/user-photos/
+/Titashop-backend.log
+/Titashop-backend-16-01-2023.0.log
