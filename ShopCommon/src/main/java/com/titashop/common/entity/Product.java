@@ -2,9 +2,7 @@ package com.titashop.common.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -64,6 +62,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductImage> images = new HashSet<>();
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductDetail> details = new ArrayList<>();
 
     public Product() {
     }
@@ -174,10 +175,23 @@ public class Product {
     public void addExtraImage(String imageName){
         this.images.add(new ProductImage(imageName, this));
     }
+
     @Transient
     public String getMainImagePath(){
         if (id == null || mainImage == null) return "/images/image-thumbnail.png";
         return "/product-images/" + this.id + "/" + this.mainImage;
+    }
+
+    public List<ProductDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<ProductDetail> details) {
+        this.details = details;
+    }
+
+    public void addDetail(String name, String value){
+        this.details.add(new ProductDetail(name, value, this));
     }
 
     public boolean isInStock() {

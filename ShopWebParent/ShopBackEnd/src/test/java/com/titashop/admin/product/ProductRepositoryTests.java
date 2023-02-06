@@ -124,4 +124,18 @@ public class ProductRepositoryTests {
 
         Assertions.assertThat(byName).isNotNull();
     }
+
+    @Test
+    public void testSaveProductWithDetails(){
+        Integer productId = 1;
+        Product product = repo.findById(productId).get();
+
+        product.addDetail("Device Memory", "128 GB");
+        product.addDetail("CPU Model", "MediaTek");
+        product.addDetail("OS", "Android");
+
+        Product savedProduct = repo.save(product);
+
+        assertThat(!savedProduct.getDetails().isEmpty());
+    }
 }
