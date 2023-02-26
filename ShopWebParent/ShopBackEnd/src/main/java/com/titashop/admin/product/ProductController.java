@@ -55,7 +55,7 @@ public class ProductController {
                               @RequestParam(name = "detailValues", required = false) String[] detailValues
     )
             throws IOException {
-        
+
         setMainImageName(mainImageMultipart, product);
         setExtraImageNames(extraImageMultiparts, product);
         setProductDetails(detailNames, detailValues, product);
@@ -154,6 +154,28 @@ public class ProductController {
 
         return "redirect:/products";
     }
+
+
+    @GetMapping("/products/edit/{id}")
+    public String editProduct(@PathVariable("id") Integer id, Model model,
+                              RedirectAttributes ra){
+        try {
+            var product = productService.get(id);
+            List<Brand> listBrands = brandService.listAllBrands();
+
+
+            model.addAttribute("product", product);
+            model.addAttribute("listBrands", listBrands);
+            model.addAttribute("pageTitle","Edit Product (ID:" + id + ")");
+
+
+            return "products/product_form";
+        } catch (ProductNotFoundException e) {
+            ra.addFlashAttribute("message", e.getMessage());
+            return "redirect:/products";
+        }
+    }
+
 }
 
 

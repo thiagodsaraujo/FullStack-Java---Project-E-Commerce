@@ -55,13 +55,13 @@ public class ProductService {
         return repo.save(productInDB);
     }
 
-    public Product get(Integer id) throws ProductNotFoundException {
-        try {
-            return repo.findById(id).get();
-        } catch (NoSuchElementException ex) {
-            throw new ProductNotFoundException("Could not find any brand with ID " + id);
-        }
-    }
+//    public Product get(Integer id) throws ProductNotFoundException {
+//        try {
+//            return repo.findById(id).get();
+//        } catch (NoSuchElementException ex) {
+//            throw new ProductNotFoundException("Could not find any brand with ID " + id);
+//        }
+//    }
 
 
     public String checkUnique(Integer id, String name){
@@ -94,5 +94,13 @@ public class ProductService {
             throw new ProductNotFoundException("Could not find any product with ID: " + id);
         }
         repo.deleteById(id);
+    }
+
+    public Product get(Integer id) throws ProductNotFoundException {
+        try{
+            return repo.findById(id).get();
+        } catch (NoSuchElementException exception){
+            throw new ProductNotFoundException("Could not find any product with ID: " + id);
+        }
     }
 }
