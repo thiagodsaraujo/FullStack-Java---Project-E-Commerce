@@ -4,15 +4,18 @@
 <div th:fragment="content" th:remove="tag">
     <div class="row" id="divProductImages">
         <div class="col border m-3 p-2">
-            <div><label>Main Image:</label></div>
+
+            <div><label>Main Image: [[${product.mainImage}]]</label></div>
             <div class="m-2">
                 <img id="thumbnail" alt="Main image preview" class="img-fluid"
                      th:src="@{${product.mainImagePath}}"/>
             </div>
             <div>
-                <input type="file" id="fileImage" name="fileImage" required
+                <input type="file" id="fileImage" name="fileImage"
+                       th:required="${product.mainImage == null}"
                        accept="image/png, image/jpeg" />
             </div>
+            <input type="hidden" th:field="*{mainImage}">
         </div>
 
         <div class="col border m-3 p-2" id="divExtraImage0">
