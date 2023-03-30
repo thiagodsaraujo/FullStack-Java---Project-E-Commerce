@@ -165,7 +165,7 @@ public class ProductController {
     public String editProduct(@PathVariable("id") Integer id, Model model,
                               RedirectAttributes ra){
         try {
-            
+
             var product = productService.get(id);
             List<Brand> listBrands = brandService.listAllBrands();
 
