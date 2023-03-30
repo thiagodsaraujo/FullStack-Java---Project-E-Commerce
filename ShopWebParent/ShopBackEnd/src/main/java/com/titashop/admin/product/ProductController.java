@@ -84,7 +84,9 @@ public class ProductController {
 
     private void saveUploadedImages(MultipartFile mainImageMultipart,
                                     MultipartFile[] extraImageMultiparts, Product savedProduct) throws IOException {
+
         if (!mainImageMultipart.isEmpty()) {
+
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
             String uploadDir = "../product-images/" + savedProduct.getId();
 
@@ -102,10 +104,10 @@ public class ProductController {
                 FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
             }
         }
-
     }
 
     private void setExtraImageNames(MultipartFile[] extraImageMultiparts, Product product) {
+
         if (extraImageMultiparts.length > 0) {
             for (MultipartFile multipartFile : extraImageMultiparts) {
                 if (!multipartFile.isEmpty()) {
@@ -117,16 +119,19 @@ public class ProductController {
     }
 
     private void setMainImageName(MultipartFile mainImageMultipart, Product product) {
+
         if (!mainImageMultipart.isEmpty()) {
             String fileName = StringUtils.cleanPath(mainImageMultipart.getOriginalFilename());
             product.setMainImage(fileName);
         }
+
     }
 
     @GetMapping("/products/{id}/enabled/{status}")
     public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
                                               @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
         productService.updateProductEnabledStatus(id, enabled);
+        // condição ? valor_se_verdadeiro : valor_se_falso
         String status = enabled ? "enabled" : "disabled";
         String message = "The Product ID " + id + " has been " + status;
         redirectAttributes.addFlashAttribute("message", message);
@@ -160,6 +165,7 @@ public class ProductController {
     public String editProduct(@PathVariable("id") Integer id, Model model,
                               RedirectAttributes ra){
         try {
+            
             var product = productService.get(id);
             List<Brand> listBrands = brandService.listAllBrands();
 
