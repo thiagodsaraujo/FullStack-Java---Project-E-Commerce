@@ -292,4 +292,18 @@ public class Product {
                 ", brand=" + brand +
                 '}';
     }
+
+    public boolean containsImageName(String imageName) {
+        Iterator<ProductImage> iterator = images.iterator();
+
+
+        while (iterator.hasNext()){
+            ProductImage image = iterator.next();
+
+            if (image.getName().equals(imageName)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
