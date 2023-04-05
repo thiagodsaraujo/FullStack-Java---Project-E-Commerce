@@ -3,8 +3,9 @@ package com.titashop.common.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="product_images")
+@Table(name = "product_images")
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,6 +25,7 @@ public class ProductImage {
         this.name = name;
         this.product = product;
     }
+
 
     public ProductImage(String name, Product product) {
         this.name = name;
@@ -55,7 +57,7 @@ public class ProductImage {
     }
 
     @Transient
-    public String getImagePath(){
+    public String getImagePath() {
         return "/product-images/" + product.getId() + "/extras/" + this.name;
     }
 

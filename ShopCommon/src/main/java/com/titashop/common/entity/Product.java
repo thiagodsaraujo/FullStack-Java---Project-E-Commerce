@@ -50,8 +50,6 @@ public class Product {
     @Column(name = "main_image", nullable = false)
     private String mainImage;
 
-    private String image;
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -60,37 +58,11 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductImage> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductDetail> details = new ArrayList<>();
-
-    public Product() {
-    }
-
-    public Product(String name, String alias, String shortDescription, String fullDescription,
-                   Date createdTime, Date updatedTime, boolean enabled, boolean inStock, float cost, float price,
-                   float discountPercent, float length, float width, float height, float weight, Category category,
-                   Brand brand) {
-        this.name = name;
-        this.alias = alias;
-        this.shortDescription = shortDescription;
-        this.fullDescription = fullDescription;
-        this.createdTime = createdTime;
-        this.updatedTime = updatedTime;
-        this.enabled = enabled;
-        this.inStock = inStock;
-        this.cost = cost;
-        this.price = price;
-        this.discountPercent = discountPercent;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.weight = weight;
-        this.category = category;
-        this.brand = brand;
-    }
 
     public Integer getId() {
         return id;
@@ -154,44 +126,6 @@ public class Product {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Set<ProductImage> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<ProductImage> images) {
-        this.images = images;
-    }
-
-    public String getMainImage() {
-        return mainImage;
-    }
-
-    public void setMainImage(String mainImage) {
-        this.mainImage = mainImage;
-    }
-
-    public void addExtraImage(String imageName){
-        this.images.add(new ProductImage(imageName, this));
-    }
-
-    @Transient
-    public String getMainImagePath(){
-        if (id == null || mainImage == null) return "/images/image-thumbnail.png";
-        return "/product-images/" + this.id + "/" + this.mainImage;
-    }
-
-    public List<ProductDetail> getDetails() {
-        return details;
-    }
-
-    public void setDetails(List<ProductDetail> details) {
-        this.details = details;
-    }
-
-    public void addDetail(String name, String value){
-        this.details.add(new ProductDetail(name, value, this));
     }
 
     public boolean isInStock() {
@@ -276,34 +210,62 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", fullDescription='" + fullDescription + '\'' +
-                ", createdTime=" + createdTime +
-                ", updatedTime=" + updatedTime +
-                ", enabled=" + enabled +
-                ", inStock=" + inStock +
-                ", cost=" + cost +
-                ", price=" + price +
-                ", discountPercent=" + discountPercent +
-                ", category=" + category +
-                ", brand=" + brand +
-                '}';
+        return "Product [id=" + id + ", name=" + name + "]";
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public Set<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<ProductImage> images) {
+        this.images = images;
+    }
+
+    public void addExtraImage(String imageName) {
+        this.images.add(new ProductImage(imageName, this));
+    }
+
+    @Transient
+    public String getMainImagePath() {
+        if (id == null || mainImage == null) return "/images/image-thumbnail.png";
+
+        return "/product-images/" + this.id + "/" + this.mainImage;
+    }
+
+    public List<ProductDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<ProductDetail> details) {
+        this.details = details;
+    }
+
+    public void addDetail(String name, String value) {
+        this.details.add(new ProductDetail(name, value, this));
+    }
+
+    public void addDetail(Integer id, String name, String value) {
+        this.details.add(new ProductDetail(id, name, value, this));
     }
 
     public boolean containsImageName(String imageName) {
         Iterator<ProductImage> iterator = images.iterator();
 
-
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             ProductImage image = iterator.next();
-
-            if (image.getName().equals(imageName)){
+            if (image.getName().equals(imageName)) {
                 return true;
             }
         }
+
         return false;
     }
 }
