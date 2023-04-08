@@ -25,6 +25,10 @@ public class Category {
 
     private boolean enabled;
 
+    @Column(name = "all_parent_ids", length = 256, nullable = true)
+    private String allParentIDs;
+
+
     @SuppressWarnings("JpaAttributeTypeInspection")
     @OneToOne
     @JoinColumn(name = "parent_id")
@@ -175,6 +179,15 @@ public class Category {
 
     public void setHasChildren(boolean hasChildren) {
         this.hasChildren = hasChildren;
+    }
+
+
+    public String getAllParentIDs() {
+        return allParentIDs;
+    }
+
+    public void setAllParentIDs(String allParentIDs) {
+        this.allParentIDs = allParentIDs;
     }
 
     @Transient
