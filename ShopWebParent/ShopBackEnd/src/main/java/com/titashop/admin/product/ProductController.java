@@ -2,7 +2,9 @@ package com.titashop.admin.product;
 
 import com.titashop.admin.FileUploadUtil;
 import com.titashop.admin.brand.BrandService;
+import com.titashop.admin.category.CategoryService;
 import com.titashop.common.entity.Brand;
+import com.titashop.common.entity.Category;
 import com.titashop.common.entity.Product;
 import com.titashop.common.entity.ProductImage;
 import org.slf4j.Logger;
@@ -34,19 +36,25 @@ public class ProductController {
 
     @Autowired private ProductService productService;
     @Autowired private BrandService brandService;
+    @Autowired private CategoryService categoryService;
 
     @GetMapping("/products")
     public String listFirstPage(Model model) {
-        return listByPage(1, model, "name", "asc", null);
+        return listByPage(1, model, "name", "asc", null, 0 );
     }
 
     @GetMapping("/products/page/{pageNum}")
     private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
                               @Param("sortField") String sortField, @Param("sortDir") String sortDir,
-                              @Param("keyword") String keyword){
+                              @Param("keyword") String keyword,
+                              @Param("categoryID") Integer categoryId){
+
+        System.out.println("Selected category ID: " + categoryId);
 
         Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword);
         List<Product> listProducts = page.getContent();
+
+        var listCategories = categoryService.listCategoriesUsedInForm();
 
         long startCount = (pageNum - 1) * productService.PRODUCTS_PER_PAGE + 1;
         long endCount = startCount + productService.PRODUCTS_PER_PAGE - 1 ;
@@ -67,6 +75,7 @@ public class ProductController {
         model.addAttribute("reverseSortDir", reverseSortDir);
         model.addAttribute("keyword", keyword);
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("listCategories", listCategories);
 
 
         return "products/products";

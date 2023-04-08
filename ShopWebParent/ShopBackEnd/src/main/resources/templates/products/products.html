@@ -12,7 +12,38 @@
 
     </div>
 
-    <div th:replace="fragments :: search_form_and_message('/products/page/1')" />
+    <div>
+        <form th:action="@{/products/page/1}" class="form-inline m-3" id="searchForm">
+            <input type="hidden" name="sortField" th:value="${sortField}" />
+            <input type="hidden" name="sortDir" th:value="${sortDir}" />
+
+            &nbsp;&nbsp;Category:&nbsp;&nbsp;
+            <select class="form-control" name ="categoryId" th:id="dropDownCategory">
+
+                <option value="0">All Categories</option>
+
+                <th:block th:each="cat : ${listCategories}">
+                    <option th:value="${cat.id}">[[${cat.name}]] </option>
+                </th:block>
+
+            </select>
+
+            &nbsp;&nbsp;Filter:&nbsp;&nbsp;
+            <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </form>
+
+        <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+    </div>
 
     <div class="full-details">
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
@@ -95,6 +126,10 @@
             e.preventDefault();
             linkDetailURL = $(this).attr("href");
            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+        });
+
+        $("#dropDownCategory").on("change", function (){
+           $("#searchForm").submit();
         });
     });
 </script>
