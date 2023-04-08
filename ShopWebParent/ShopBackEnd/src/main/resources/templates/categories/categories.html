@@ -8,15 +8,8 @@
         <h2>Manage Categories</h2>
 
         <a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
-        &nbsp;|&nbsp;
         <a th:href="@{/categories/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
-        &nbsp;|&nbsp;
 
-
-    </div>
-
-    <div th:if="${message != null}" class="alert alert-success text-center">
-        [[${message}]]
     </div>
 
     <div th:replace="fragments :: search_form_and_message('/categories/page/1')" />
@@ -27,11 +20,7 @@
             <tr>
                 <th>ID</th>
                 <th>Category Image</th>
-                <th>
-<!--                    <a class="text-white" th:href="@{'/categories/page/' + ${currentPage} + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Category Name</a>-->
-<!--                    <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}" ></span>-->
-                <th th:replace="fragments :: column_link('/categories', 'name', 'Category Name','none')"/>
-                </th>
+                <th th:replace="fragments :: column_link('/categories', 'name', 'Category Name', 'none')" />
                 <th class="hideable-column">Alias</th>
                 <th>Enabled</th>
                 <th></th>
