@@ -14,6 +14,7 @@ import java.util.Set;
 public class TitaShopUserDetails implements UserDetails {
 
 
+    private static final long serialVersion = 1L;
 
     private User user;
 
@@ -134,5 +135,9 @@ public class TitaShopUserDetails implements UserDetails {
 
     public void setLastName(String lastName){
         this.user.setFirstName(lastName);
+    }
+
+    public boolean hasRole(String roleName){
+        return user.hasRole(roleName);
     }
 }
