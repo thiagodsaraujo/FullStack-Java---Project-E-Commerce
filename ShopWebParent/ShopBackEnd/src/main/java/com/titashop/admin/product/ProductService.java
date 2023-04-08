@@ -17,41 +17,48 @@ import java.util.NoSuchElementException;
 @Service
 @Transactional
 public class ProductService {
-
     public static final int PRODUCTS_PER_PAGE = 5;
-    @Autowired
-    ProductRepository repo;
 
-    public List<Product> listAll(){
+    @Autowired private ProductRepository repo;
+
+    public List<Product> listAll() {
         return (List<Product>) repo.findAll();
     }
 
-    public Page<Product> listByPage(int pageNum, String sortField, String sortDir, String keyword){
+    public Page<Product> listByPage(int pageNum, String sortField, String sortDir,
+                                    String keyword, Integer categoryId) {
         Sort sort = Sort.by(sortField);
 
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
         Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
 
-        if (keyword != null){
+        if (keyword != null && !keyword.isEmpty()) {
+            if (categoryId != null && categoryId > 0) {
+                String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+                return repo.searchInCategory(categoryId, categoryIdMatch, keyword, pageable);
+            }
+
             return repo.findAll(keyword, pageable);
+        }
+
+        if (categoryId != null && categoryId > 0) {
+            String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+            return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
         }
 
         return repo.findAll(pageable);
     }
 
-    public Product save(Product product){
-
+    public Product save(Product product) {
         if (product.getId() == null) {
             product.setCreatedTime(new Date());
         }
 
-        if (product.getAlias() == null || product.getAlias().isEmpty()){
+        if (product.getAlias() == null || product.getAlias().isEmpty()) {
             String defaultAlias = product.getName().replaceAll(" ", "-");
             product.setAlias(defaultAlias);
-        }
-
-        else {
+        } else {
             product.setAlias(product.getAlias().replaceAll(" ", "-"));
         }
 
@@ -60,66 +67,41 @@ public class ProductService {
         return repo.save(product);
     }
 
-    public Product editBrand(Product productInForm){
-        Product productInDB = repo.findById(productInForm.getId()).get();
-
-
-//        if (productInForm.getImage() != null){
-//            productInDB.setImage(productInForm.getImage());
-//        }
-
-        productInDB.setName(productInForm.getName());
-
-
-        return repo.save(productInDB);
-    }
-
-//    public Product get(Integer id) throws ProductNotFoundException {
-//        try {
-//            return repo.findById(id).get();
-//        } catch (NoSuchElementException ex) {
-//            throw new ProductNotFoundException("Could not find any brand with ID " + id);
-//        }
-//    }
-
-
-    public String checkUnique(Integer id, String name){
+    public String checkUnique(Integer id, String name) {
         boolean isCreatingNew = (id == null || id == 0);
+        Product productByName = repo.findByName(name);
 
-        var productByName = repo.findByName(name);
-
-        if (isCreatingNew){
-            if (productByName != null){
-                return "Duplicate";
-            }
+        if (isCreatingNew) {
+            if (productByName != null) return "Duplicate";
         } else {
-            if (productByName != null && productByName.getId() != id){
+            if (productByName != null && productByName.getId() != id) {
                 return "Duplicate";
             }
         }
 
         return "OK";
-
     }
 
     public void updateProductEnabledStatus(Integer id, boolean enabled) {
         repo.updateEnabledStatus(id, enabled);
     }
 
-    public void deleteProduct(Integer id) throws ProductNotFoundException {
+    public void delete(Integer id) throws ProductNotFoundException {
         Long countById = repo.countById(id);
 
-        if (countById == null || countById == 0){
-            throw new ProductNotFoundException("Could not find any product with ID: " + id);
+        if (countById == null || countById == 0) {
+            throw new ProductNotFoundException("Could not find any product with ID " + id);
         }
+
         repo.deleteById(id);
     }
 
     public Product get(Integer id) throws ProductNotFoundException {
-        try{
+        try {
             return repo.findById(id).get();
-        } catch (NoSuchElementException exception){
-            throw new ProductNotFoundException("Could not find any product with ID: " + id);
+        } catch (NoSuchElementException ex) {
+            throw new ProductNotFoundException("Could not find any product with ID " + id);
         }
     }
 }
+

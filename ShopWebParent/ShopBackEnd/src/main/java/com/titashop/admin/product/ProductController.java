@@ -40,30 +40,30 @@ public class ProductController {
 
     @GetMapping("/products")
     public String listFirstPage(Model model) {
-        return listByPage(1, model, "name", "asc", null, 0 );
+        return listByPage(1, model, "name", "asc", null, 0);
     }
 
     @GetMapping("/products/page/{pageNum}")
-    private String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
-                              @Param("sortField") String sortField, @Param("sortDir") String sortDir,
-                              @Param("keyword") String keyword,
-                              @Param("categoryID") Integer categoryId){
-
-        System.out.println("Selected category ID: " + categoryId);
-
-        Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword);
+    public String listByPage(
+            @PathVariable(name = "pageNum") int pageNum, Model model,
+            @Param("sortField") String sortField, @Param("sortDir") String sortDir,
+            @Param("keyword") String keyword,
+            @Param("categoryId") Integer categoryId
+    ) {
+        Page<Product> page = productService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
         List<Product> listProducts = page.getContent();
 
-        var listCategories = categoryService.listCategoriesUsedInForm();
+        List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 
-        long startCount = (pageNum - 1) * productService.PRODUCTS_PER_PAGE + 1;
-        long endCount = startCount + productService.PRODUCTS_PER_PAGE - 1 ;
-
-        if (endCount > page.getTotalElements()){
+        long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
+        long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
+        if (endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
 
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+
+        if (categoryId != null) model.addAttribute("categoryId", categoryId);
 
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", page.getTotalPages());
@@ -76,7 +76,6 @@ public class ProductController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("listProducts", listProducts);
         model.addAttribute("listCategories", listCategories);
-
 
         return "products/products";
     }
@@ -241,7 +240,7 @@ public class ProductController {
                                 Model model,
                                 RedirectAttributes redirectAttributes) {
         try {
-            productService.deleteProduct(id);
+            productService.delete(id);
             String productExtraImagesDir = "../product-images/" + id + "/extras";
             String productImagesDir = "../product-images/" + id;
 
@@ -282,7 +281,7 @@ public class ProductController {
 
     @GetMapping("/products/detail/{id}")
     public String viewProductDetails(@PathVariable("id") Integer id, Model model,
-                              RedirectAttributes ra) {
+                                     RedirectAttributes ra) {
         try {
             Product product = productService.get(id);
             model.addAttribute("product", product);
@@ -296,5 +295,3 @@ public class ProductController {
         }
     }
 }
-
-

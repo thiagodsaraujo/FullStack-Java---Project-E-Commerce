@@ -9,7 +9,6 @@
 
         <a th:href="@{/products/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
         <a th:href="@{/products/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
-
     </div>
 
     <div>
@@ -17,18 +16,16 @@
             <input type="hidden" name="sortField" th:value="${sortField}" />
             <input type="hidden" name="sortDir" th:value="${sortDir}" />
 
-            &nbsp;&nbsp;Category:&nbsp;&nbsp;
-            <select class="form-control" name ="categoryId" th:id="dropDownCategory">
-
+            Category:&nbsp;
+            <select class="form-control" name="categoryId" id="dropdownCategory">
                 <option value="0">All Categories</option>
 
                 <th:block th:each="cat : ${listCategories}">
-                    <option th:value="${cat.id}">[[${cat.name}]] </option>
+                    <option th:value="${cat.id}" th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
                 </th:block>
-
             </select>
 
-            &nbsp;&nbsp;Filter:&nbsp;&nbsp;
+            &nbsp;Filter:&nbsp;
             <input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
             &nbsp;&nbsp;
             <button type="submit" class="btn btn-primary">
@@ -49,49 +46,41 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-<!--                <th>ID</th>-->
                 <th th:replace="fragments :: column_link('/products', 'id', 'ID', 'none')" />
                 <th>Main Image</th>
                 <th th:replace="fragments :: column_link('/products', 'name', 'Product Name', 'none')" />
                 <th th:replace="fragments :: column_link('/products', 'brand', 'Brand', 'none')" />
                 <th th:replace="fragments :: column_link('/products', 'category', 'Category', 'none')" />
                 <th>Enabled</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="product : ${listProducts}">
                 <td>[[${product.id}]]</td>
                 <td>
-                    <img th:src="@{${product.mainImagePath}}" style="width: 120px" class="img-fluid"/>
+                    <img th:src="@{${product.mainImagePath}}" style="width: 120px" class="img-fluid" />
                 </td>
-
                 <td>
                     <a class="link-detail"
                        th:href="@{'/products/detail/' + ${product.id}}"
-                       th:title="${product.name}">
-                        [[${product.shortName}]]
-                    </a>
-                </td>
+                       th:title="${product.name}"
+                    >[[${product.shortName}]]</a>
 
-                <td>
-                    [[${product.brand.name}]]
                 </td>
-
-                <td>
-                    [[${product.category.name}]]
-                </td>
-
+                <td>[[${product.brand.name}]]</td>
+                <td>[[${product.category.name}]]</td>
                 <td>
                     <div th:replace="fragments :: status(${product.enabled}, 'product', '/products/' + ${product.id})" />
                 </td>
                 <td>
                     <a class="fas fa-file-alt fa-2x icon-green link-detail"
-                       th:href="@{'/products/details/' + ${product.id}}"
-                    title="View details of product"></a>
-                    &nbsp;&nbsp;
+                       th:href="@{'/products/detail/' + ${product.id}}"
+                       title="View details of this product"
+                    ></a>
+                    &nbsp;
                     <div th:replace="fragments :: edit('product', '/products/edit/' + ${product.id})" />
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <div th:replace="fragments :: delete('product', ${product.id}, '/products/delete/' + ${product.id}, true)" />
                 </td>
             </tr>
@@ -109,6 +98,7 @@
     </div>
 
     <div th:replace="fragments :: pagination('/products', 'products')"></div>
+
     <div th:replace="fragments :: footer"></div>
 
 </div>
@@ -122,15 +112,16 @@
             showDeleteConfirmModal($(this), 'product');
         });
 
-        $(".link-detail").on("click", function (e){
+        $(".link-detail").on("click", function(e) {
             e.preventDefault();
             linkDetailURL = $(this).attr("href");
-           $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+            $("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
         });
 
-        $("#dropDownCategory").on("change", function (){
-           $("#searchForm").submit();
+        $("#dropdownCategory").on("change", function() {
+            $("#searchForm").submit();
         });
+
     });
 </script>
 </body>
