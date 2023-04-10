@@ -1,2 +1,0 @@
-git clone https://github.com/namhaminh/shopme
-git checkout ee83c9a60048a94c8f70e7ccb5dff2fa43bb92ed
