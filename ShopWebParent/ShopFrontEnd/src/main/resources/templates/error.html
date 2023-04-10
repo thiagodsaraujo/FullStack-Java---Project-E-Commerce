@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Error - Tita Shop', 'none')"/>
+
+<body>
+
+    <div class="container-fluid">
+        <div th:replace="navigation :: header_menu">
+            <div class="m-3">
+                <h2>Sorry, an unexpected error has occurred</h2>
+            </div>
+                <div th:replace="navigation :: footer_menu"></div>
+        </div>
+    </div>
+</body>
+</html>
