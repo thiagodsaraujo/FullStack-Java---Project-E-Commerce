@@ -68,7 +68,9 @@ public class ProductService {
     }
 
     public void saveProductPrice(Product productInForm) {
+
         Product productInDB = repo.findById(productInForm.getId()).get();
+
         productInDB.setCost(productInForm.getCost());
         productInDB.setPrice(productInForm.getPrice());
         productInDB.setDiscountPercent(productInForm.getDiscountPercent());
