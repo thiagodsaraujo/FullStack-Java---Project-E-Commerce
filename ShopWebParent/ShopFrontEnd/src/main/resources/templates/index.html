@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:replace="fragments :: page_head('TitaShop', 'none')"/>
 
-<meta charset="ISO-8859-1">
-<title>Welcome to Tita Shop</title>
-</head>
 <body>
+	<div class="container-fluid">
 
-	<h1>Welcome to Tita Shop - Teste12</h1>
-	<h2>Hi!</h2>
+	<div th:replace="navigation :: header_menu"></div>
+
+		<div>
+			<h1 class="p-2">Welcome to Tita Shop - eCommerce</h1>
+		</div>
+
+	</div>
+
 </body>
-
-
 
 </html>
