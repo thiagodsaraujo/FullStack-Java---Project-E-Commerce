@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/titashop")
+@RequestMapping("/index")
 public class MainController {
 
 	@Autowired
 	private CategoryService categoryService;
 
-	@GetMapping("/index")
+	@GetMapping("")
 	public String viewHomePage(Model model) {
 
 		List<Category> listCategories = categoryService.listNoChildrenCategories();
