@@ -23,11 +23,6 @@ public class CategoryRepositoryTests {
         categories.forEach(category -> {
             System.out.println(category.getName() + "( " + category.isEnabled() + ") ");
         });
-
-//        for (Category category: categories) {
-//            System.out.println(category);
-//        }
-
         return;
     }
 
@@ -43,35 +38,14 @@ public class CategoryRepositoryTests {
         listNoChildrenCategories.forEach(category -> {
             System.out.println(category.getName() + "( " + category.isEnabled() + ") ");
         });
-
-//        // Verifica se a lista retornada contém apenas a categoria 3
-//        assertEquals(1, listNoChildrenCategories.size());
-//        assertEquals(cat3.getName(), listNoChildrenCategories.get(0).getName());
     }
 
+     @Test
+    public void testFindCategoryByAlias(){
+        String alias = "camera";
+         var category = repo.findByAliasEnabled(alias);
 
-    @Test
-    public void compararListas() {
-
-
-        List<Category> categories = repo.findAllEnabled();
-
-        List<Category> listNoChildrenCategories = repo.findAllNoChildren();
-
-        System.out.println("---------------------");
-
-//        listNoChildrenCategories.forEach(category -> {
-//            System.out.println(category.getName() + "( " + category.isEnabled() + ") ");
-//        });
-//
-//        System.out.println("---------------------");
-//
-//        categories.forEach(category -> {
-//            System.out.println(category.getName() + "( " + category.isEnabled() + ") ");
-//        });
-        System.out.println("1: " + categories.size());
-        System.out.println("2: " + listNoChildrenCategories.size());
-
-    }
+         assertThat(category).isNotNull();
+     }
 
 }
