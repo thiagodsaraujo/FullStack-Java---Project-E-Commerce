@@ -14,7 +14,8 @@ import java.util.List;
 //@RequestMapping("/titashop")
 public class MainController {
 
-	@Autowired private CategoryService categoryService;
+	@Autowired
+	private CategoryService categoryService;
 
 	@GetMapping("")
 	public String viewHomePage(Model model) {
