@@ -11,21 +11,19 @@ import java.util.Set;
 @Service
 public class CategoryService {
 
-    @Autowired CategoryRepository repo;
+    @Autowired private CategoryRepository repo;
 
-    public List<Category> listNoChildrenCategories(){
-
+    public List<Category> listNoChildrenCategories() {
         List<Category> listNoChildrenCategories = new ArrayList<>();
-        var listEnabledCategories = repo.findAllEnabled();
+
+        List<Category> listEnabledCategories = repo.findAllEnabled();
 
         listEnabledCategories.forEach(category -> {
-            var children = category.getChildren();
-
-            if (children == null || children.size() == 0){
+            Set<Category> children = category.getChildren();
+            if (children == null || children.size() == 0) {
                 listNoChildrenCategories.add(category);
             }
         });
-
 
         return listNoChildrenCategories;
     }
