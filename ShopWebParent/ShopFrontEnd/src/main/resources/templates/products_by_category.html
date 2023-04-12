@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
 <body>
 <div class="container-fluid">
@@ -24,6 +24,22 @@
 		</div>
 
 	</div>
+
+	<div class="row">
+		<th:block th:each="product : ${listProducts}">
+		<div class="col">
+			<div>
+				<img th:src="@{${product.mainImagePath}}" width="180"/>
+				</br>
+				<b>[[${product.name}]]</b>
+
+			</div>
+
+		</div>
+		</th:block>
+	</div>
+
+	<div th:replace="fragments :: pagination('/c/' + ${category.alias}, 'product')"></div>
 
 
 

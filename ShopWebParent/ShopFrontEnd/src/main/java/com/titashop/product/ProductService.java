@@ -17,7 +17,7 @@ public class ProductService {
     public Page<Product> listByCategory(int pageNum, Integer categoryId){
 
         String categoryIDMatch = "-" + String.valueOf(categoryId) + "-";
-        Pageable pageable = PageRequest.of(pageNum, PROCUTS_PER_PAGE);
+        Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 
         return repository.listByCategory(categoryId, categoryIDMatch, pageable);
 

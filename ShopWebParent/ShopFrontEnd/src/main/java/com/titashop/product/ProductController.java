@@ -29,7 +29,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/c/{category_alias}/page{pageNum}")
+    @GetMapping("/c/{category_alias}/page/{pageNum}")
     public String viewCategoryByPage(@PathVariable("category_alias") String alias,
                                @PathVariable("pageNum") int pageNum,
                                Model model){
@@ -41,7 +41,7 @@ public class ProductController {
 
         var listCategoryParents = categoryService.getCategoryParents(category);
 
-        Page<Product> pageProducts = productService.listByCategory(1, category.getId());
+        Page<Product> pageProducts = productService.listByCategory(pageNum, category.getId());
         var listProducts = pageProducts.getContent();
 
         long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
@@ -60,6 +60,7 @@ public class ProductController {
         model.addAttribute("pageTitle", category.getName());
         model.addAttribute("listCategoryParents", listCategoryParents);
         model.addAttribute("listProducts", listProducts);
+        model.addAttribute("category", category);
 
         return "products_by_category";
     }
