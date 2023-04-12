@@ -22,9 +22,21 @@
 				</nav>
 			</div>
 		</div>
-
 	</div>
 
+	<div class="row text-center">
+		<th:block th:each="cat : ${category.children}">
+			<div class="col" th:if="${cat.enabled == true}">
+			<a th:href="@{'/c/' + ${cat.alias}}">
+				<img th:src="@{${cat.imagePath}}" height="100"/>
+				</br>
+				<b>[[${cat.name}]]</b>
+			</a>
+			</div>
+		</th:block>
+	</div>
+
+	<div class="row">&nbsp;</div>
 	<div class="row">
 		<th:block th:each="product : ${listProducts}">
 		<div class="col">
