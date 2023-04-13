@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+
+<div class="container-fluid">
+	<div th:replace="navigation :: header_menu"></div>
+	<div th:replace="breadcrumb :: content"></div>
+
+	<div class="row">
+		<div class="col-sm">
+			<img th:src="@{${product.mainImagePath}}" class="imag-fluid"/>
+		</div>
+		<div class="col-sm">
+
+			<div>
+				<h2>[[${product.name}]]</h2>
+			</div>
+
+			<div>
+				<span>Brand: [[${product.brand.name}]]</span>
+			</div>
+
+			<div>
+				List Price:
+				<span th:if="${product.discountPercent <= 0}">$ [[${product.price}]]</span>
+				<del th:if="${product.discountPercent > 0}"><span>$ [[${product.price}]]</span></del>
+			</div>
+			<div th:if="${product.discountPercent > 0}">
+				Price:
+				<span style="font-size: larger; color: red">$ [[${product.discountPrice}]]</span>
+				([[${product.discountPercent}]] % off)
+			</div>
+			<div>&nbsp;</div>
+			<div th:utext="${product.shortDescription}"></div>
+		</div>
+
+	</div>
+
+	<div th:replace="navigation :: footer_menu"></div>
+
+</div>
+</body>
+</html>

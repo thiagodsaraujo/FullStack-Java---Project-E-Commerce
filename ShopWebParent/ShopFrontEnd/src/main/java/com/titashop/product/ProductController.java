@@ -62,14 +62,14 @@ public class ProductController {
                 model.addAttribute("listProducts", listProducts);
                 model.addAttribute("category", category);
 
-                return "products_by_category";
+                return "product/products_by_category";
 
         } catch (CategoryNotFoundException ex){
             return "error/404";
         }
     }
 
-    @GetMapping("/p/{product_alias")
+    @GetMapping("/p/{product_alias}")
     public String viewProductDetail(@PathVariable("product_alias")String alias, Model model){
 
         try {
@@ -78,8 +78,9 @@ public class ProductController {
 
             model.addAttribute("listCategoryParents", listCategoryParents);
             model.addAttribute("product", product);
+            model.addAttribute("pageTitle", product.getShortName());
 
-            return "product_detail";
+            return "product/product_detail";
         } catch (ProductNotFoundException e) {
             return "error/404";
         }
