@@ -2,6 +2,7 @@ package com.titashop.admin.category;
 
 
 import com.titashop.common.entity.Category;
+import com.titashop.common.exceptions.CategoryNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -237,7 +238,7 @@ public class CategoryService {
     }
 
 
-    public Category get(Integer id) throws CategoryNotFoundException{
+    public Category get(Integer id) throws CategoryNotFoundException {
         try {
             return cateRepo.findById(id).get();
         } catch (NoSuchElementException e) {

@@ -2,6 +2,7 @@ package com.titashop.admin.product;
 
 import com.titashop.common.entity.Brand;
 import com.titashop.common.entity.Product;
+import com.titashop.common.exceptions.ProductNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

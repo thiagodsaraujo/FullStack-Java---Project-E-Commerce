@@ -1,4 +1,4 @@
-package com.titashop.admin.category;
+package com.titashop.common.exceptions;
 
 public class CategoryNotFoundException extends Exception {
 

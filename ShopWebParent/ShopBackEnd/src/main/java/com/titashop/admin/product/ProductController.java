@@ -8,6 +8,7 @@ import com.titashop.common.entity.Brand;
 import com.titashop.common.entity.Category;
 import com.titashop.common.entity.Product;
 import com.titashop.common.entity.ProductImage;
+import com.titashop.common.exceptions.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

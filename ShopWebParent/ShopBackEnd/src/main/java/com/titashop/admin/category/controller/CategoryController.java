@@ -1,7 +1,7 @@
 package com.titashop.admin.category.controller;
 
 import com.titashop.admin.FileUploadUtil;
-import com.titashop.admin.category.CategoryNotFoundException;
+import com.titashop.common.exceptions.CategoryNotFoundException;
 import com.titashop.admin.category.CategoryPageInfo;
 import com.titashop.admin.category.CategoryService;
 import com.titashop.common.entity.Category;

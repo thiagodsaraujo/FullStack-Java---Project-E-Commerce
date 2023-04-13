@@ -36,6 +36,7 @@ public class Category {
 
     @SuppressWarnings("JpaAttributeTypeInspection")
     @OneToMany(mappedBy = "parent")
+    @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
 
