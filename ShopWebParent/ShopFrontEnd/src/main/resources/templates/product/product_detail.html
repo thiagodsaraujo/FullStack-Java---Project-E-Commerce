@@ -12,6 +12,16 @@
 			<div>
 				<img th:src="@{${product.mainImagePath}}" class="img-fluid" />
 			</div>
+			<div class="row justify-content-center">
+				<div class="m-2">
+					<img th:src="@{${product.mainImagePath}}" height="50"/>
+				</div>
+				<th:block th:each="extraImage : ${product.images}">
+					<div>
+						<img th:src="@{${extraImage.imagePath}}" height="50"/>
+					</div>
+				</th:block>
+			</div>
 		</div>
 		<div class="col-sm">
 			<div>
