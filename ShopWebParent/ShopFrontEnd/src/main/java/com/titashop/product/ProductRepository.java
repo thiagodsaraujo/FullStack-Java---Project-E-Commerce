@@ -21,4 +21,11 @@ public interface ProductRepository extends CrudRepository<Product, Integer>, Pag
     public Product findByAlias(String alias);
 
 
+    // aqui usamos a linguagem sql nativa e nao como acima, que colocamos o nome da entidade em especifico.
+    @Query(value = "SELECT * FROM products p WHERE p.enabled = TRUE AND " +
+            "MATCH(name, short_description, full_description) AGAINST(?1)", nativeQuery = true)
+    public Page<Product> search(String keyword, Pageable pageable);
+
+
+
 }
