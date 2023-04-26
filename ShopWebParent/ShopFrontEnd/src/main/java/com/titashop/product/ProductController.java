@@ -89,26 +89,22 @@ public class ProductController {
 
 
     @GetMapping("/search")
-    public String searchFirstPage(@Param("keyword") String keyword, Model model){
+    public String searchFirstPage(@Param("keyword") String keyword, Model model) {
         return searchByPage(keyword, 1, model);
     }
 
-
-    @GetMapping("/search/{pageNum}")
+    @GetMapping("/search/page/{pageNum}")
     public String searchByPage(@Param("keyword") String keyword,
-                         @PathVariable("pageNum") int pageNum,
-                         Model model){
-        var pageProducts = productService.search(keyword, pageNum);
+                               @PathVariable("pageNum") int pageNum,
+                               Model model) {
+        Page<Product> pageProducts = productService.search(keyword, pageNum);
         List<Product> listResult = pageProducts.getContent();
-
 
         long startCount = (pageNum - 1) * ProductService.SEARCH_RESULTS_PER_PAGE + 1;
         long endCount = startCount + ProductService.SEARCH_RESULTS_PER_PAGE - 1;
-
         if (endCount > pageProducts.getTotalElements()) {
             endCount = pageProducts.getTotalElements();
         }
-
 
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalPages", pageProducts.getTotalPages());
@@ -119,6 +115,7 @@ public class ProductController {
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("listResult", listResult);
+
         return "product/search_result";
     }
 }
