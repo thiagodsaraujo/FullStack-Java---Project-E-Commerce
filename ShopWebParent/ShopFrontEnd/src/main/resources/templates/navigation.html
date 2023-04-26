@@ -55,6 +55,21 @@
     </nav>
 </div>
 
+<div th:fragment="search_nav" class="row">
+    <div class="col-md">
+        <nav class="navbar navbar-expand-sm bg-light">
+            <div class="collapse navbar-collapse" id="searchNavbar">
+                <form class="form-inline" th:action="@{/search}" method="get">
+                    <input type="search" name="keyword" class="form-control mr-sm-2"
+                           placeholder="keyword" required/>
+                    <input type="submit" class="btn btn-outline-success"/>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
 <div th:fragment="footer_menu">
     <div>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
