@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/ShopWebParent/ShopBackEnd/ShopBackEnd.iml" filepath="$PROJECT_DIR$/ShopWebParent/ShopBackEnd/ShopBackEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopCommon/ShopCommon.iml" filepath="$PROJECT_DIR$/ShopCommon/ShopCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShopWebParent/ShopFrontEnd/ShopFrontEnd.iml" filepath="$PROJECT_DIR$/ShopWebParent/ShopFrontEnd/ShopFrontEnd.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ShopWebParent/ShopWebParent.iml" filepath="$PROJECT_DIR$/ShopWebParent/ShopWebParent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TitaShopProject.iml" filepath="$PROJECT_DIR$/TitaShopProject.iml" />
     </modules>
   </component>
 </project>

@@ -32,5 +32,30 @@ build/
 ### VS Code ###
 .vscode/
 /user-photos/
+/category-images/
+/brand-logos/
 /Titashop-backend.log
 /Titashop-backend-16-01-2023.0.log
+
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar

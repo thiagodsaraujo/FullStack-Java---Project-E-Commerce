@@ -11,13 +11,6 @@
         <module name="ShopBackEnd" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ShopBackEnd" target="17" />
-      <module name="ShopCommon" target="17" />
-      <module name="ShopFrontEnd" target="17" />
-      <module name="ShopWebParent" target="17" />
-      <module name="TitaShopProject" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
